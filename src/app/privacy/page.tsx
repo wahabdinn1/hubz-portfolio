@@ -7,13 +7,9 @@ export const metadata: Metadata = {
   description: LEGAL_CONTENT.en.privacy.metaDescription,
   alternates: {
     canonical: "/privacy",
-    languages: {
-      en: "/privacy",
-      id: "/id/privacy",
-    },
   },
 };
 
 export default function PrivacyPage() {
-  return <LegalDocumentPage locale="en" doc="privacy" />;
+  return <LegalDocumentPage doc="privacy" />;
 }

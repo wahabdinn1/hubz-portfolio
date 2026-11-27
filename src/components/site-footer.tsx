@@ -1,66 +1,84 @@
-import Link from "next/link";
-import { SITE_CONTENT, SITE_META } from "@/content/site";
-import { localizePath, type Locale } from "@/lib/locale";
+"use client";
 
-export function SiteFooter({ locale }: { locale: Locale }) {
-  const copy = SITE_CONTENT[locale];
+import Link from "next/link";
+import {
+  ArrowUp,
+  FolderGit2,
+  Mail,
+  Scale,
+  Send,
+  ShieldCheck,
+} from "lucide-react";
+import { SITE_META } from "@/content/site";
+import { useI18n } from "@/lib/i18n";
+
+const FOOTER_LINK =
+  "inline-flex min-h-10 items-center gap-1.5 whitespace-nowrap rounded-base border-2 border-secondary-background px-3 text-xs font-bold transition-colors hover:border-main hover:bg-main hover:text-foreground sm:text-sm";
+
+export function SiteFooter() {
+  const { site: copy } = useI18n();
 
   return (
-    <footer className="mt-auto border-t border-rule-2 bg-paper-2">
-      <div className="mx-auto w-full max-w-[1120px] px-4 py-12 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-8 border-b border-rule pb-8 md:flex-row md:items-end md:justify-between">
-          <div className="space-y-2">
-            <p className="font-display text-3xl font-normal tracking-tight text-ink">
-              {SITE_META.name}
-            </p>
-            <p className="text-sm text-muted-ink">{copy.footer.operatorNote}</p>
-          </div>
-
+    <footer className="mt-20 border-t-3 border-border bg-foreground text-secondary-background">
+      <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-8 px-4 py-12 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:px-8">
+        <div className="min-w-0 space-y-2.5">
+          <p className="font-heading text-2xl font-extrabold sm:text-3xl">
+            {SITE_META.name}
+          </p>
+          <p className="text-sm text-secondary-background/85">
+            {copy.footer.operatorNote}
+          </p>
           <a
             href={`mailto:${SITE_META.email}`}
-            className="editorial-link text-base font-medium whitespace-nowrap self-start md:self-auto"
+            className="inline-flex items-center gap-2 break-all font-heading text-base font-extrabold text-main underline decoration-2 underline-offset-4 sm:text-lg"
           >
-            {SITE_META.email}
+            <Mail className="size-4 shrink-0" strokeWidth={2.5} aria-hidden="true" />
+            <span>{SITE_META.email}</span>
           </a>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-4 pt-6 text-sm">
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            <Link
-              href={localizePath("/apps/hubz-publisher", locale)}
-              className="editorial-link whitespace-nowrap"
-            >
-              {SITE_META.appName}
-            </Link>
-            <Link
-              href={localizePath("/terms", locale)}
-              className="editorial-link whitespace-nowrap"
-            >
-              {copy.footer.termsLabel}
-            </Link>
-            <Link
-              href={localizePath("/privacy", locale)}
-              className="editorial-link whitespace-nowrap"
-            >
-              {copy.footer.privacyLabel}
-            </Link>
-            <a
-              href={SITE_META.githubUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="editorial-link whitespace-nowrap"
-            >
-              {copy.footer.githubLabel}
-            </a>
-          </div>
-
-          <a
-            href="#top"
-            className="text-sm font-medium text-muted-ink hover:text-ink transition-colors whitespace-nowrap"
-          >
-            {copy.footer.backToTop}
-          </a>
-        </div>
+        <nav aria-label="Footer navigation" className="shrink-0">
+          <ul className="flex flex-wrap items-center gap-2.5 lg:flex-nowrap">
+            <li>
+              <Link href="/apps/hubz-publisher" className={FOOTER_LINK}>
+                <Send className="size-3.5 shrink-0" strokeWidth={2.5} aria-hidden="true" />
+                <span>{SITE_META.appName}</span>
+              </Link>
+            </li>
+            <li>
+              <Link href="/terms" className={FOOTER_LINK}>
+                <Scale className="size-3.5 shrink-0" strokeWidth={2.5} aria-hidden="true" />
+                <span>{copy.footer.termsLabel}</span>
+              </Link>
+            </li>
+            <li>
+              <Link href="/privacy" className={FOOTER_LINK}>
+                <ShieldCheck className="size-3.5 shrink-0" strokeWidth={2.5} aria-hidden="true" />
+                <span>{copy.footer.privacyLabel}</span>
+              </Link>
+            </li>
+            <li>
+              <a
+                href={SITE_META.githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                className={FOOTER_LINK}
+              >
+                <FolderGit2 className="size-3.5 shrink-0" strokeWidth={2.5} aria-hidden="true" />
+                <span>{copy.footer.githubLabel}</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#top"
+                className="inline-flex min-h-10 items-center gap-1.5 whitespace-nowrap rounded-base border-2 border-main bg-main px-3 text-xs font-bold text-foreground transition-colors hover:bg-secondary-background hover:border-secondary-background sm:text-sm"
+              >
+                <ArrowUp className="size-3.5 shrink-0" strokeWidth={2.5} aria-hidden="true" />
+                <span>{copy.footer.backToTop}</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </footer>
   );

@@ -8,12 +8,12 @@ export function CopyEmailButton({
   email,
   label,
   copiedLabel,
-  variant = "outline",
+  variant = "neutral",
 }: {
   email: string;
   label: string;
   copiedLabel: string;
-  variant?: "default" | "outline" | "secondary";
+  variant?: "default" | "neutral" | "dark";
 }) {
   const [copied, setCopied] = useState(false);
 
@@ -30,15 +30,12 @@ export function CopyEmailButton({
   return (
     <Button
       type="button"
+      size="lg"
       variant={variant}
       onClick={handleCopy}
       aria-live="polite"
     >
-      {copied ? (
-        <Check className="size-4" aria-hidden="true" />
-      ) : (
-        <Copy className="size-4" aria-hidden="true" />
-      )}
+      {copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
       <span>{copied ? copiedLabel : label}</span>
     </Button>
   );

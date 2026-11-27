@@ -24,6 +24,7 @@ export type PlatformSpecRow = {
   duration: string;
   delivery: string;
   scopes: string;
+  optionalScopes?: string;
 };
 
 export type SiteContent = {
@@ -43,6 +44,8 @@ export type SiteContent = {
     menuOpen: string;
     menuClose: string;
     skipToContent: string;
+    onThisPage: string;
+    marqueeLabel: string;
   };
   hero: {
     roles: string;
@@ -65,6 +68,7 @@ export type SiteContent = {
       delivery: string;
       scopes: string;
     };
+    optionalLabel: string;
     legalNotePrefix: string;
     termsLabel: string;
     privacyLabel: string;
@@ -122,6 +126,8 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
       menuOpen: "Open menu",
       menuClose: "Close menu",
       skipToContent: "Skip to main content",
+      onThisPage: "On this page",
+      marqueeLabel: "Platforms and stack",
     },
     hero: {
       roles: "Associate Partner Technology IAI, Admin, and Full-Stack Developer",
@@ -163,6 +169,7 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
         delivery: "Delivery mode",
         scopes: "API scopes",
       },
+      optionalLabel: "Optional",
       legalNotePrefix: "Official review documents for Hubz Publisher:",
       termsLabel: "Terms of Service",
       privacyLabel: "Privacy Policy",
@@ -179,12 +186,14 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
         duration: "3 s to 90 s",
         delivery: "Native scheduled_publish_time (Page Video fallback over 90 s)",
         scopes: "pages_show_list, pages_read_engagement, pages_manage_posts",
+        optionalScopes: "pages_manage_engagement",
       },
       {
         platform: "Instagram Reels",
         duration: "3 s to 15 m",
         delivery: "Local worker via HMAC-signed 1080x1920 tunnel or direct rupload",
-        scopes: "instagram_basic, instagram_content_publish, instagram_manage_insights",
+        scopes: "instagram_basic, instagram_content_publish",
+        optionalScopes: "instagram_manage_insights, instagram_manage_comments",
       },
       {
         platform: "TikTok",
@@ -278,6 +287,8 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
       menuOpen: "Buka menu",
       menuClose: "Tutup menu",
       skipToContent: "Lompat ke konten utama",
+      onThisPage: "Di halaman ini",
+      marqueeLabel: "Platform dan stack",
     },
     hero: {
       roles: "Associate Partner Technology IAI, Admin, dan Full-Stack Developer",
@@ -298,7 +309,7 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
         summary:
           "Studio publikasi self-hosted untuk impor batch kit video, penjadwalan ke YouTube Shorts, Facebook Reels, Instagram Reels, dan TikTok, komentar pertama otomatis, serta sinkronisasi analitik di SQLite lokal.",
         stack: "Next.js 16, TypeScript, Prisma, SQLite WAL, FFmpeg, Cloudflare Quick Tunnel",
-        href: "/id/apps/hubz-publisher",
+        href: "/apps/hubz-publisher",
         linkLabel: "Baca spesifikasi",
       },
       {
@@ -319,6 +330,7 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
         delivery: "Metode kirim",
         scopes: "Scope API",
       },
+      optionalLabel: "Opsional",
       legalNotePrefix: "Dokumen resmi peninjauan Hubz Publisher:",
       termsLabel: "Ketentuan Layanan",
       privacyLabel: "Kebijakan Privasi",
@@ -335,12 +347,14 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
         duration: "3 dtk hingga 90 dtk",
         delivery: "scheduled_publish_time native (fallback Page Video di atas 90 dtk)",
         scopes: "pages_show_list, pages_read_engagement, pages_manage_posts",
+        optionalScopes: "pages_manage_engagement",
       },
       {
         platform: "Instagram Reels",
         duration: "3 dtk hingga 15 mnt",
         delivery: "Worker lokal via tunnel 1080x1920 bertanda tangan HMAC atau rupload",
-        scopes: "instagram_basic, instagram_content_publish, instagram_manage_insights",
+        scopes: "instagram_basic, instagram_content_publish",
+        optionalScopes: "instagram_manage_insights, instagram_manage_comments",
       },
       {
         platform: "TikTok",

@@ -1,41 +1,19 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { getAlternateLocalePath, localizePath } from "./locale";
+import { DEFAULT_LOCALE, parseLocale } from "./locale";
 import { SITE_CONTENT, SITE_META } from "../content/site";
 import { LEGAL_CONTENT } from "../content/legal";
 
-test("getAlternateLocalePath maps EN and ID routes bidirectionally and normalizes trailing slashes", () => {
-  assert.equal(getAlternateLocalePath("/", "id"), "/id");
-  assert.equal(getAlternateLocalePath("/id", "en"), "/");
-  assert.equal(getAlternateLocalePath("/id/", "en"), "/");
-
-  assert.equal(getAlternateLocalePath("/terms", "id"), "/id/terms");
-  assert.equal(getAlternateLocalePath("/terms/", "id"), "/id/terms");
-  assert.equal(getAlternateLocalePath("/id/terms/", "en"), "/terms");
-
-  assert.equal(getAlternateLocalePath("/privacy", "id"), "/id/privacy");
-  assert.equal(getAlternateLocalePath("/id/privacy", "en"), "/privacy");
-
-  assert.equal(
-    getAlternateLocalePath("/apps/hubz-publisher", "id"),
-    "/id/apps/hubz-publisher"
-  );
-  assert.equal(
-    getAlternateLocalePath("/id/apps/hubz-publisher/", "en"),
-    "/apps/hubz-publisher"
-  );
-
-  assert.equal(getAlternateLocalePath("/terms?ref=tiktok#top", "id"), "/id/terms");
-  assert.equal(getAlternateLocalePath("/unknown/path", "en"), "/");
-  assert.equal(getAlternateLocalePath("/unknown/path", "id"), "/id");
-});
-
-test("localizePath prefixes Indonesian paths cleanly without double slashes", () => {
-  assert.equal(localizePath("/", "en"), "/");
-  assert.equal(localizePath("/", "id"), "/id");
-  assert.equal(localizePath("/terms", "en"), "/terms");
-  assert.equal(localizePath("/terms", "id"), "/id/terms");
-  assert.equal(localizePath("/apps/hubz-publisher", "id"), "/id/apps/hubz-publisher");
+test("parseLocale defaults safely to EN and recognizes ID variants", () => {
+  assert.equal(DEFAULT_LOCALE, "en");
+  assert.equal(parseLocale("en"), "en");
+  assert.equal(parseLocale("EN-US"), "en");
+  assert.equal(parseLocale("id"), "id");
+  assert.equal(parseLocale("id-ID"), "id");
+  assert.equal(parseLocale(" ID "), "id");
+  assert.equal(parseLocale(undefined), "en");
+  assert.equal(parseLocale(null), "en");
+  assert.equal(parseLocale("fr"), "en");
 });
 
 test("SITE_CONTENT keeps EN/ID parity, real owner facts, zero placeholders, and zero middle-dot role joins", () => {
@@ -54,6 +32,12 @@ test("SITE_CONTENT keeps EN/ID parity, real owner facts, zero placeholders, and 
   assert.doesNotMatch(combined, /\b(TBD|TODO|Lorem ipsum)\b/i);
   assert.doesNotMatch(SITE_CONTENT.en.hero.roles, /·/);
   assert.doesNotMatch(SITE_CONTENT.id.hero.roles, /·/);
+
+  for (const project of [...SITE_CONTENT.en.projects, ...SITE_CONTENT.id.projects]) {
+    if (project.href) {
+      assert.ok(!project.href.startsWith("/id"), `Project href ${project.href} must not use legacy /id path`);
+    }
+  }
 });
 
 test("LEGAL_CONTENT includes required operator, app, and TikTok/Google/Meta API disclosures", () => {
@@ -88,4 +72,9 @@ test("LEGAL_CONTENT includes required operator, app, and TikTok/Google/Meta API 
   );
   assert.equal(LEGAL_CONTENT.en.terms.sections.length, LEGAL_CONTENT.id.terms.sections.length);
   assert.equal(LEGAL_CONTENT.en.privacy.sections.length, LEGAL_CONTENT.id.privacy.sections.length);
+
+  for (const locale of ["en", "id"] as const) {
+    assert.ok(!LEGAL_CONTENT[locale].terms.otherDocPath.startsWith("/id"));
+    assert.ok(!LEGAL_CONTENT[locale].privacy.otherDocPath.startsWith("/id"));
+  }
 });

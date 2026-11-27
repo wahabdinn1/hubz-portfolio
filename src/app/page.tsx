@@ -7,13 +7,9 @@ export const metadata: Metadata = {
   description: SITE_CONTENT.en.meta.homeDescription,
   alternates: {
     canonical: "/",
-    languages: {
-      en: "/",
-      id: "/id",
-    },
   },
 };
 
 export default function HomePage() {
-  return <PortfolioHome locale="en" />;
+  return <PortfolioHome />;
 }

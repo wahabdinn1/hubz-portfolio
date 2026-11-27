@@ -7,13 +7,9 @@ export const metadata: Metadata = {
   description: LEGAL_CONTENT.en.terms.metaDescription,
   alternates: {
     canonical: "/terms",
-    languages: {
-      en: "/terms",
-      id: "/id/terms",
-    },
   },
 };
 
 export default function TermsPage() {
-  return <LegalDocumentPage locale="en" doc="terms" />;
+  return <LegalDocumentPage doc="terms" />;
 }

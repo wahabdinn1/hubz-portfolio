@@ -174,7 +174,7 @@ export const LEGAL_CONTENT: Record<Locale, LegalBundle> = {
       authorityNotice:
         "Terjemahan bahasa Indonesia ini disediakan untuk kemudahan baca. Versi bahasa Inggris di /terms merupakan dokumen hukum resmi yang berlaku untuk peninjauan API.",
       otherDocLabel: "Baca Kebijakan Privasi",
-      otherDocPath: "/id/privacy",
+      otherDocPath: "/privacy",
       backLabel: "Kembali ke beranda",
       sections: [
         {
@@ -246,7 +246,7 @@ export const LEGAL_CONTENT: Record<Locale, LegalBundle> = {
       authorityNotice:
         "Terjemahan bahasa Indonesia ini disediakan untuk kemudahan baca. Versi bahasa Inggris di /privacy merupakan dokumen hukum resmi yang berlaku untuk peninjauan API.",
       otherDocLabel: "Baca Ketentuan Layanan",
-      otherDocPath: "/id/terms",
+      otherDocPath: "/terms",
       backLabel: "Kembali ke beranda",
       sections: [
         {

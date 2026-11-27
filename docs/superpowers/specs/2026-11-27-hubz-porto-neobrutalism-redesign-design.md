@@ -11,7 +11,9 @@ The owner rejected the Specimen look (cream paper, Bodoni serif, hairline rules)
 ## Scope
 
 - Replace every Hallmark / Specimen token, class and font. Hallmark `sloplint` is no longer a gate.
-- Restyle all routes: `/`, `/id`, `/apps/hubz-publisher`, `/id/apps/hubz-publisher`, `/terms`, `/id/terms`, `/privacy`, `/id/privacy`, `404.html`.
+- Restyle all unified routes: `/`, `/apps/hubz-publisher`, `/terms`, `/privacy`, `404.html`.
+- Replace duplicated `/id/*` static routes with a single route tree backed by a client-side `I18nProvider` (`useSyncExternalStore` + `localStorage`). Static HTML exports default to English (`lang="en"`) for crawler/API review bots; clicking `EN`/`ID` in the header switches language in place without URL changes.
+- Keep the desktop footer on a single balanced horizontal row (all 4 links + Top action) and pair cards, badges, platforms, workflow steps, legal headers, and footer links with consistent bold `lucide-react` icons.
 - No new facts. `src/content/site.ts` and `src/content/legal.ts` keep their copy. Only UI labels are added (table-of-contents label).
 - Fold in three deferred minors from the previous review: Meta optional comment scopes in the platform table, `aria-current` in the mobile nav, platform table rendered as stacked cards on small screens.
 - Out of scope: dark mode, new pages, blog, analytics.

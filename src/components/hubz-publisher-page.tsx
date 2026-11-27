@@ -1,219 +1,186 @@
-import Link from "next/link";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { SITE_CONTENT, SITE_META } from "@/content/site";
-import { localizePath, type Locale } from "@/lib/locale";
+"use client";
 
-export function HubzPublisherPage({ locale }: { locale: Locale }) {
-  const copy = SITE_CONTENT[locale];
+import Link from "next/link";
+import {
+  ArrowUpRight,
+  BarChart3,
+  Check,
+  FolderInput,
+  Mail,
+  Scale,
+  Send,
+  ShieldCheck,
+  SlidersHorizontal,
+  UploadCloud,
+} from "lucide-react";
+import { BackLink } from "@/components/back-link";
+import { PageShell } from "@/components/page-shell";
+import { PlatformSpecs } from "@/components/platform-specs";
+import { SectionHeading } from "@/components/section-heading";
+import { Button } from "@/components/ui/button";
+import { SITE_META } from "@/content/site";
+import { useI18n } from "@/lib/i18n";
+
+const STEP_ICONS = [FolderInput, SlidersHorizontal, UploadCloud, BarChart3];
+
+export function HubzPublisherPage() {
+  const { site: copy } = useI18n();
   const page = copy.productPage;
-  const pathname = localizePath("/apps/hubz-publisher", locale);
-  const homeHref = localizePath("/", locale);
-  const termsHref = localizePath("/terms", locale);
-  const privacyHref = localizePath("/privacy", locale);
 
   return (
-    <div id="top" className="flex min-h-dvh flex-col bg-paper text-ink">
-      <SiteHeader locale={locale} pathname={pathname} />
+    <PageShell pathname="/apps/hubz-publisher">
+      <div className="pt-8">
+        <BackLink href="/" label={page.backLabel} />
+      </div>
 
-      <main
-        id="main-content"
-        className="mx-auto w-full max-w-[1120px] flex-1 px-4 py-12 sm:px-6 sm:py-16 lg:px-8"
+      <section
+        aria-labelledby="product-heading"
+        className="mt-6 space-y-6 rounded-base border-3 border-border bg-coral p-6 shadow-shadow sm:p-10"
       >
-        <div className="mb-8">
-          <Link
-            href={homeHref}
-            className="editorial-link inline-flex items-center gap-1.5 text-sm font-medium whitespace-nowrap"
+        <div className="flex items-start justify-between gap-4">
+          <h1
+            id="product-heading"
+            className="text-[clamp(2.25rem,7.5vw,5.5rem)] leading-[0.92] uppercase"
           >
-            <ArrowLeft className="size-3.5" aria-hidden="true" />
-            <span>{page.backLabel}</span>
-          </Link>
+            {page.heading}
+          </h1>
+          <span
+            aria-hidden="true"
+            className="hidden size-16 shrink-0 place-items-center rounded-base border-3 border-border bg-main shadow-sm sm:grid"
+          >
+            <Send className="size-8" strokeWidth={2.5} />
+          </span>
         </div>
-
-        <section aria-labelledby="product-heading" className="pb-14 space-y-6">
-          <div className="specimen-guide pb-4">
-            <h1
-              id="product-heading"
-              className="font-display text-[clamp(2.75rem,6vw,4.75rem)] font-normal leading-[1.02] text-ink"
-            >
-              {page.heading}
-            </h1>
-          </div>
-
-          <p className="text-lg text-ink-2 max-w-[60ch]">{page.subtitle}</p>
-
-          <div className="flex flex-wrap items-center gap-3 pt-2">
-            <Button
-              variant="default"
-              nativeButton={false}
-              render={<Link href={termsHref} />}
-            >
-              <span>{copy.specSection.termsLabel}</span>
-            </Button>
-            <Button
-              variant="outline"
-              nativeButton={false}
-              render={<Link href={privacyHref} />}
-            >
-              <span>{copy.specSection.privacyLabel}</span>
-            </Button>
-          </div>
-        </section>
-
-        <Separator />
-
-        <section
-          aria-labelledby="workflow-heading"
-          className="py-14 space-y-8"
-        >
-          <h2
-            id="workflow-heading"
-            className="font-display text-[clamp(1.85rem,3.6vw,2.75rem)] font-normal text-ink"
+        <p className="max-w-[60ch] text-lg sm:text-xl">{page.subtitle}</p>
+        <div className="flex flex-wrap items-center gap-4">
+          <Button
+            variant="dark"
+            size="lg"
+            nativeButton={false}
+            render={<Link href="/terms" />}
           >
-            {page.workflowHeading}
-          </h2>
+            <Scale strokeWidth={2.5} aria-hidden="true" />
+            <span>{copy.specSection.termsLabel}</span>
+          </Button>
+          <Button
+            variant="neutral"
+            size="lg"
+            nativeButton={false}
+            render={<Link href="/privacy" />}
+          >
+            <ShieldCheck strokeWidth={2.5} aria-hidden="true" />
+            <span>{copy.specSection.privacyLabel}</span>
+          </Button>
+        </div>
+      </section>
 
-          <ol className="divide-y divide-rule border-y border-rule">
-            {page.workflowSteps.map((item) => (
+      <section aria-labelledby="workflow-heading" className="space-y-8 pt-16 sm:pt-20">
+        <SectionHeading id="workflow-heading" title={page.workflowHeading} />
+        <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {page.workflowSteps.map((item, idx) => {
+            const StepIcon = STEP_ICONS[idx % STEP_ICONS.length];
+            return (
               <li
                 key={item.step}
-                className="grid gap-3 py-6 md:grid-cols-[72px_minmax(0,0.85fr)_minmax(0,1.45fr)] md:items-baseline"
+                className="flex min-w-0 flex-col gap-4 rounded-base border-3 border-border bg-secondary-background p-5 shadow-shadow"
               >
-                <span className="tabular-num font-mono text-sm text-muted-ink">
-                  {item.step}
-                </span>
-                <h3 className="font-display text-2xl font-normal text-ink">
-                  {item.title}
-                </h3>
-                <p className="text-base text-ink-2 max-w-[56ch]">
-                  {item.detail}
-                </p>
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        <section aria-labelledby="api-heading" className="py-12 space-y-6">
-          <Separator variant="double" />
-
-          <div className="grid gap-4 pt-4 md:grid-cols-2 md:items-end">
-            <h2
-              id="api-heading"
-              className="font-display text-[clamp(1.85rem,3.6vw,2.75rem)] font-normal text-ink"
-            >
-              {page.apiHeading}
-            </h2>
-            <p className="text-base text-muted-ink max-w-[48ch]">
-              {page.apiIntro}
-            </p>
-          </div>
-
-          <div className="border-y border-rule-2 bg-paper">
-            <Table>
-              <TableHeader>
-                <TableRow className="border-b border-rule-2 hover:bg-transparent">
-                  <TableHead>{copy.specSection.columns.platform}</TableHead>
-                  <TableHead>{copy.specSection.columns.duration}</TableHead>
-                  <TableHead>{copy.specSection.columns.delivery}</TableHead>
-                  <TableHead>{copy.specSection.columns.scopes}</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {copy.platformSpecs.map((row) => (
-                  <TableRow
-                    key={row.platform}
-                    className="border-b border-rule hover:bg-paper-2"
+                <div className="flex items-center justify-between gap-3">
+                  <span
+                    aria-hidden="true"
+                    className="grid size-12 place-items-center rounded-base border-2 border-border bg-main font-heading text-xl font-extrabold"
                   >
-                    <TableCell className="font-medium text-ink whitespace-nowrap">
-                      {row.platform}
-                    </TableCell>
-                    <TableCell className="tabular-num font-mono text-xs text-ink whitespace-nowrap">
-                      {row.duration}
-                    </TableCell>
-                    <TableCell className="text-sm text-ink-2">
-                      {row.delivery}
-                    </TableCell>
-                    <TableCell className="font-mono text-xs text-muted-ink">
-                      {row.scopes}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-        </section>
+                    {item.step}
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="grid size-10 place-items-center rounded-base border-2 border-border bg-background"
+                  >
+                    <StepIcon className="size-5" strokeWidth={2.5} />
+                  </span>
+                </div>
+                <h3 className="text-xl">{item.title}</h3>
+                <p className="text-[0.95rem]">{item.detail}</p>
+              </li>
+            );
+          })}
+        </ol>
+      </section>
 
-        <Separator />
+      <section aria-labelledby="api-heading" className="space-y-8 pt-16 sm:pt-20">
+        <SectionHeading id="api-heading" title={page.apiHeading} intro={page.apiIntro} />
+        <PlatformSpecs />
+      </section>
 
-        <section
+      <section className="grid gap-6 pt-16 sm:pt-20 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+        <div
           aria-labelledby="security-heading"
-          className="grid gap-10 py-14 md:grid-cols-2"
+          role="region"
+          className="space-y-6 rounded-base border-3 border-border bg-mint p-6 shadow-shadow sm:p-8"
         >
-          <div className="space-y-4">
-            <h2
-              id="security-heading"
-              className="font-display text-[clamp(1.75rem,3vw,2.4rem)] font-normal text-ink"
+          <div className="flex items-center gap-3">
+            <span
+              aria-hidden="true"
+              className="grid size-11 shrink-0 place-items-center rounded-base border-2 border-border bg-secondary-background shadow-sm"
             >
+              <ShieldCheck className="size-6" strokeWidth={2.5} />
+            </span>
+            <h2 id="security-heading" className="text-[clamp(1.75rem,3vw,2.5rem)]">
               {page.securityHeading}
             </h2>
-            <ul className="space-y-3 border-t border-rule pt-4 text-base text-ink-2">
-              {page.securityPoints.map((point) => (
-                <li
-                  key={point}
-                  className="border-b border-rule pb-3 last:border-b-0"
-                >
-                  {point}
-                </li>
-              ))}
-            </ul>
           </div>
+          <ul className="space-y-4">
+            {page.securityPoints.map((point) => (
+              <li key={point} className="flex gap-3">
+                <span
+                  aria-hidden="true"
+                  className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-[6px] border-2 border-border bg-secondary-background"
+                >
+                  <Check className="size-4" strokeWidth={3} />
+                </span>
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-          <div className="space-y-4 border-t border-rule pt-6 md:border-t-0 md:border-l md:pl-8 md:pt-0">
-            <h2 className="font-display text-[clamp(1.75rem,3vw,2.4rem)] font-normal text-ink">
+        <div
+          aria-labelledby="legal-heading"
+          role="region"
+          className="flex flex-col gap-6 rounded-base border-3 border-border bg-secondary-background p-6 shadow-shadow sm:p-8"
+        >
+          <div className="flex items-center gap-3">
+            <span
+              aria-hidden="true"
+              className="grid size-11 shrink-0 place-items-center rounded-base border-2 border-border bg-main shadow-sm"
+            >
+              <Scale className="size-6" strokeWidth={2.5} />
+            </span>
+            <h2 id="legal-heading" className="text-[clamp(1.75rem,3vw,2.5rem)]">
               {page.legalHeading}
             </h2>
-            <p className="text-base text-ink-2 max-w-[46ch]">
-              {page.legalIntro}
-            </p>
-            <div className="flex flex-col gap-3 pt-2 text-sm">
-              <Link
-                href={termsHref}
-                className="editorial-link inline-flex items-center gap-1 self-start font-medium whitespace-nowrap"
-              >
-                <span>{copy.specSection.termsLabel}</span>
-                <ArrowUpRight className="size-3.5" aria-hidden="true" />
-              </Link>
-              <Link
-                href={privacyHref}
-                className="editorial-link inline-flex items-center gap-1 self-start font-medium whitespace-nowrap"
-              >
-                <span>{copy.specSection.privacyLabel}</span>
-                <ArrowUpRight className="size-3.5" aria-hidden="true" />
-              </Link>
-              <a
-                href={`mailto:${SITE_META.email}`}
-                className="editorial-link inline-flex items-center gap-1 self-start font-medium whitespace-nowrap"
-              >
-                <span>{SITE_META.email}</span>
-                <ArrowUpRight className="size-3.5" aria-hidden="true" />
-              </a>
-            </div>
           </div>
-        </section>
-      </main>
-
-      <SiteFooter locale={locale} />
-    </div>
+          <p>{page.legalIntro}</p>
+          <div className="flex flex-col items-start gap-4">
+            <Button nativeButton={false} render={<Link href="/terms" />}>
+              <Scale strokeWidth={2.5} aria-hidden="true" />
+              <span>{copy.specSection.termsLabel}</span>
+              <ArrowUpRight strokeWidth={2.5} aria-hidden="true" />
+            </Button>
+            <Button variant="neutral" nativeButton={false} render={<Link href="/privacy" />}>
+              <ShieldCheck strokeWidth={2.5} aria-hidden="true" />
+              <span>{copy.specSection.privacyLabel}</span>
+              <ArrowUpRight strokeWidth={2.5} aria-hidden="true" />
+            </Button>
+            <a
+              href={`mailto:${SITE_META.email}`}
+              className="text-link inline-flex items-center gap-2 break-all"
+            >
+              <Mail className="size-4 shrink-0" strokeWidth={2.5} aria-hidden="true" />
+              <span>{SITE_META.email}</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </PageShell>
   );
 }

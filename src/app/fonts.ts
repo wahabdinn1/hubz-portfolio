@@ -1,29 +1,24 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, Geist, Geist_Mono } from "next/font/google";
+import { Archivo, JetBrains_Mono } from "next/font/google";
 
-export const bodoniModa = Bodoni_Moda({
-  variable: "--font-bodoni",
+export const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
-  weight: ["400"],
-  style: ["normal", "italic"],
+  axes: ["wdth"],
   display: "swap",
 });
 
-export const geistSans = Geist({
-  variable: "--font-geist-sans",
+export const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
   weight: ["400", "500"],
   display: "swap",
 });
 
-export const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  weight: ["400"],
-  display: "swap",
-});
+export const FONT_CLASS_NAMES = `${archivo.variable} ${jetbrainsMono.variable} h-full`;
 
-export const FONT_CLASS_NAMES = `${bodoniModa.variable} ${geistSans.variable} ${geistMono.variable} h-full`;
+export const BODY_CLASS_NAMES =
+  "min-h-full flex flex-col overflow-x-clip bg-background text-foreground antialiased";
 
 export const BASE_METADATA: Metadata = {
   metadataBase: new URL("https://wahabdinn.my.id"),

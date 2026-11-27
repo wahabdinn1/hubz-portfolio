@@ -1,92 +1,116 @@
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
-import { Separator } from "@/components/ui/separator";
-import { LEGAL_CONTENT } from "@/content/legal";
-import { SITE_META } from "@/content/site";
-import { localizePath, type Locale } from "@/lib/locale";
+"use client";
 
-export function LegalDocumentPage({
-  locale,
-  doc,
-}: {
-  locale: Locale;
-  doc: "terms" | "privacy";
-}) {
-  const documentData = LEGAL_CONTENT[locale][doc];
-  const baseEnPath = doc === "terms" ? "/terms" : "/privacy";
-  const pathname = localizePath(baseEnPath, locale);
-  const homeHref = localizePath("/", locale);
+import Link from "next/link";
+import { BookOpen, Calendar, Mail, Scale, ShieldCheck } from "lucide-react";
+import { BackLink } from "@/components/back-link";
+import { PageShell } from "@/components/page-shell";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { SITE_META } from "@/content/site";
+import { useI18n } from "@/lib/i18n";
+
+export function LegalDocumentPage({ doc }: { doc: "terms" | "privacy" }) {
+  const { site, legal, setLocale } = useI18n();
+  const documentData = legal[doc];
+  const nav = site.nav;
+  const pathname = doc === "terms" ? "/terms" : "/privacy";
+  const DocIcon = doc === "terms" ? Scale : ShieldCheck;
 
   return (
-    <div id="top" className="flex min-h-dvh flex-col bg-paper text-ink">
-      <SiteHeader locale={locale} pathname={pathname} />
+    <PageShell pathname={pathname}>
+      <div className="pt-8">
+        <BackLink href="/" label={documentData.backLabel} />
+      </div>
 
-      <main
-        id="main-content"
-        className="mx-auto w-full max-w-[1120px] flex-1 px-4 py-12 sm:px-6 sm:py-16 lg:px-8"
-      >
-        <div className="mb-8">
-          <Link
-            href={homeHref}
-            className="editorial-link inline-flex items-center gap-1.5 text-sm font-medium whitespace-nowrap"
-          >
-            <ArrowLeft className="size-3.5" aria-hidden="true" />
-            <span>{documentData.backLabel}</span>
-          </Link>
-        </div>
+      <div className="mt-6 grid gap-8 lg:grid-cols-[250px_minmax(0,1fr)] lg:items-start">
+        <nav
+          aria-label={nav.onThisPage}
+          className="hidden rounded-base border-3 border-border bg-secondary-background p-5 shadow-shadow lg:sticky lg:top-28 lg:block"
+        >
+          <p className="mb-3 flex items-center gap-2 font-heading text-lg font-extrabold">
+            <BookOpen className="size-4 shrink-0" strokeWidth={2.5} aria-hidden="true" />
+            <span>{nav.onThisPage}</span>
+          </p>
+          <ol className="space-y-1 text-sm">
+            {documentData.sections.map((section) => (
+              <li key={section.id}>
+                <a
+                  href={`#${section.id}`}
+                  className="block rounded-[6px] border-2 border-transparent px-2 py-1 font-bold hover:border-border hover:bg-main"
+                >
+                  {section.heading}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
 
-        <article className="max-w-[68ch] space-y-10">
-          <header className="space-y-4 border-b border-rule-2 pb-8">
-            <h1 className="font-display text-[clamp(2.5rem,5.5vw,4.25rem)] font-normal leading-[1.02] text-ink">
-              {documentData.title}
-            </h1>
-            <p className="text-base text-ink-2">{documentData.summary}</p>
-            <p className="text-sm text-muted-ink">
-              {documentData.effectiveDateLabel}:{" "}
-              <time className="text-ink font-medium">{documentData.effectiveDate}</time>
-            </p>
+        <article className="min-w-0 overflow-hidden rounded-base border-3 border-border bg-secondary-background shadow-shadow">
+          <header className="space-y-4 border-b-3 border-border bg-mint p-6 sm:p-10">
+            <div className="flex items-start justify-between gap-4">
+              <h1 className="text-[clamp(2.4rem,6vw,4.5rem)] leading-[0.95]">
+                {documentData.title}
+              </h1>
+              <span
+                aria-hidden="true"
+                className="hidden size-14 shrink-0 place-items-center rounded-base border-3 border-border bg-secondary-background shadow-sm sm:grid"
+              >
+                <DocIcon className="size-7" strokeWidth={2.5} />
+              </span>
+            </div>
+            <p className="max-w-[62ch] text-lg">{documentData.summary}</p>
+            <Badge variant="neutral" className="gap-1.5 px-3 py-1 text-sm">
+              <Calendar className="size-3.5" strokeWidth={2.5} aria-hidden="true" />
+              <span>
+                {documentData.effectiveDateLabel}:{" "}
+                <time className="font-bold">{documentData.effectiveDate}</time>
+              </span>
+            </Badge>
           </header>
 
-          {documentData.authorityNotice && (
-            <div
-              role="note"
-              className="border-l-2 border-signal bg-paper-2 px-5 py-4 text-sm text-ink"
-            >
-              <p>{documentData.authorityNotice}</p>
-              <p className="mt-2">
-                <Link href={baseEnPath} className="editorial-link font-medium">
-                  {SITE_META.domain}
-                  {baseEnPath}
-                </Link>
-              </p>
-            </div>
-          )}
+          <div className="space-y-10 p-6 sm:p-10">
+            {documentData.authorityNotice && (
+              <div
+                role="note"
+                className="max-w-[70ch] rounded-base border-3 border-border bg-main p-5 shadow-sm"
+              >
+                <p>{documentData.authorityNotice}</p>
+                <p className="mt-2">
+                  <button
+                    type="button"
+                    onClick={() => setLocale("en")}
+                    className="cursor-pointer font-bold break-all underline underline-offset-4"
+                  >
+                    {SITE_META.domain}
+                    {pathname}
+                  </button>
+                </p>
+              </div>
+            )}
 
-          <div className="space-y-10">
             {documentData.sections.map((section) => (
               <section
                 key={section.id}
                 id={section.id}
                 aria-labelledby={`heading-${section.id}`}
-                className="space-y-3"
+                className="max-w-[70ch] space-y-3"
               >
-                <h2
-                  id={`heading-${section.id}`}
-                  className="font-display text-2xl font-normal text-ink"
-                >
+                <h2 id={`heading-${section.id}`} className="text-2xl sm:text-[1.75rem]">
                   {section.heading}
                 </h2>
                 {section.paragraphs.map((paragraph) => (
-                  <p key={paragraph} className="text-base text-ink-2">
-                    {paragraph}
-                  </p>
+                  <p key={paragraph}>{paragraph}</p>
                 ))}
                 {section.bullets && (
-                  <ul className="space-y-2 border-l border-rule-2 pl-5 text-base text-ink-2">
+                  <ul className="space-y-2">
                     {section.bullets.map((bullet) => (
-                      <li key={bullet}>{bullet}</li>
+                      <li key={bullet} className="flex gap-3">
+                        <span
+                          aria-hidden="true"
+                          className="mt-[0.55em] size-2.5 shrink-0 border-2 border-border bg-coral"
+                        />
+                        <span>{bullet}</span>
+                      </li>
                     ))}
                   </ul>
                 )}
@@ -94,26 +118,24 @@ export function LegalDocumentPage({
             ))}
           </div>
 
-          <Separator />
-
-          <footer className="flex flex-wrap items-center justify-between gap-4 text-sm">
-            <Link
-              href={documentData.otherDocPath}
-              className="editorial-link font-medium whitespace-nowrap"
+          <footer className="flex flex-wrap items-center justify-between gap-4 border-t-3 border-border bg-background p-6 sm:px-10">
+            <Button
+              variant="neutral"
+              nativeButton={false}
+              render={<Link href={documentData.otherDocPath} />}
             >
               {documentData.otherDocLabel}
-            </Link>
+            </Button>
             <a
               href={`mailto:${SITE_META.email}`}
-              className="editorial-link font-medium whitespace-nowrap"
+              className="text-link inline-flex items-center gap-2 break-all"
             >
-              {SITE_META.email}
+              <Mail className="size-4 shrink-0" strokeWidth={2.5} aria-hidden="true" />
+              <span>{SITE_META.email}</span>
             </a>
           </footer>
         </article>
-      </main>
-
-      <SiteFooter locale={locale} />
-    </div>
+      </div>
+    </PageShell>
   );
 }

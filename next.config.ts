@@ -5,9 +5,6 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  experimental: {
-    globalNotFound: true,
-  },
   turbopack: {
     rules: {
       "*.css": {
