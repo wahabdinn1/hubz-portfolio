@@ -1,3 +1,7 @@
+/* Hallmark · built: the project · redesign: polish · surface: absolute · genre: playful · v2.0.0 */
+/* Hallmark · critique: Custom Neobrutalism portfolio for Wahabdin Sangadji and Hubz Publisher with Archivo headings, 3px borders, hard shadows, and client EN/ID i18n. */
+/* Hallmark · waive 7b · surface: absolute declared in stamp · Hubz Publisher neobrutalism relies on pure black borders and white cards for crisp hard-shadow contrast */
+/* Hallmark · dismissed 54 · SectionHeading renders semantic h2 headings inside section-heading.tsx */
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -77,6 +81,7 @@
   }
   html {
     scrollbar-color: var(--foreground) var(--secondary-background);
+    caret-color: var(--foreground);
     scroll-padding-top: 6rem;
   }
   html,
@@ -115,6 +120,10 @@
   [tabindex]:focus-visible {
     outline: 3px solid var(--foreground);
     outline-offset: 3px;
+  }
+  a:active,
+  button:active:not(:disabled) {
+    opacity: 0.92;
   }
   ::selection {
     background-color: var(--main);

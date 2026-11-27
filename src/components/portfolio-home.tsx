@@ -46,7 +46,7 @@ export function PortfolioHome() {
         <div className="flex min-w-0 flex-col justify-between gap-10 rounded-base border-3 border-border bg-main p-6 shadow-shadow sm:p-10">
           <h1
             id="hero-heading"
-            className="text-[clamp(2.25rem,7.5vw,5rem)] leading-[0.92] uppercase"
+            className="text-[clamp(2.25rem,7.5vw,5rem)] leading-[1.02] uppercase"
           >
             {SITE_META.name}
           </h1>
@@ -114,7 +114,12 @@ export function PortfolioHome() {
 
       {/* Full-bleed marquee */}
       <div className="relative left-1/2 w-screen -translate-x-1/2">
-        <Marquee items={marqueeItems} label={copy.nav.marqueeLabel} />
+        <Marquee
+          items={marqueeItems}
+          label={copy.nav.marqueeLabel}
+          pauseLabel={copy.nav.marqueePause}
+          playLabel={copy.nav.marqueePlay}
+        />
       </div>
 
       {/* Selected work */}

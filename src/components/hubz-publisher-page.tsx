@@ -40,7 +40,7 @@ export function HubzPublisherPage() {
         <div className="flex items-start justify-between gap-4">
           <h1
             id="product-heading"
-            className="text-[clamp(2.25rem,7.5vw,5.5rem)] leading-[0.92] uppercase"
+            className="text-[clamp(2.25rem,7.5vw,5.5rem)] leading-[1.02] uppercase"
           >
             {page.heading}
           </h1>

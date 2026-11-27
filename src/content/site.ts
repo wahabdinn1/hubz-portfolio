@@ -46,6 +46,8 @@ export type SiteContent = {
     skipToContent: string;
     onThisPage: string;
     marqueeLabel: string;
+    marqueePause: string;
+    marqueePlay: string;
   };
   hero: {
     roles: string;
@@ -129,6 +131,8 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
       skipToContent: "Skip to main content",
       onThisPage: "On this page",
       marqueeLabel: "Platforms and stack",
+      marqueePause: "Pause scrolling ticker",
+      marqueePlay: "Play scrolling ticker",
     },
     hero: {
       roles: "Associate Partner Technology IAI, Admin, and Full-Stack Developer",
@@ -291,6 +295,8 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
       skipToContent: "Lompat ke konten utama",
       onThisPage: "Di halaman ini",
       marqueeLabel: "Platform dan stack",
+      marqueePause: "Jeda teks berjalan",
+      marqueePlay: "Jalankan teks berjalan",
     },
     hero: {
       roles: "Associate Partner Technology IAI, Admin, dan Full-Stack Developer",
