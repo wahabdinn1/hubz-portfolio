@@ -54,4 +54,40 @@ test("static export generates all 8 EN/ID routes and 404.html with complete craw
   assert.ok(termsHtml.includes("TikTok"), "terms.html missing TikTok");
   assert.ok(termsHtml.includes("YouTube"), "terms.html missing YouTube");
   assert.ok(termsHtml.includes("Meta"), "terms.html missing Meta");
+
+  const idHomeHtml = fs.readFileSync(path.join(OUT_DIR, "id.html"), "utf8");
+  const idTermsHtml = fs.readFileSync(path.join(OUT_DIR, "id/terms.html"), "utf8");
+  const idPrivacyHtml = fs.readFileSync(path.join(OUT_DIR, "id/privacy.html"), "utf8");
+  const idProductHtml = fs.readFileSync(
+    path.join(OUT_DIR, "id/apps/hubz-publisher.html"),
+    "utf8"
+  );
+
+  for (const [label, html] of [
+    ["id.html", idHomeHtml],
+    ["id/terms.html", idTermsHtml],
+    ["id/privacy.html", idPrivacyHtml],
+    ["id/apps/hubz-publisher.html", idProductHtml],
+  ]) {
+    assert.match(html, /<html[^>]*\blang="id"/, `${label} must emit lang="id"`);
+  }
+
+  assert.match(homeHtml, /<html[^>]*\blang="en"/, 'index.html must emit lang="en"');
+  assert.ok(
+    !idHomeHtml.includes("Wahabdin Sangadji | Wahabdin Sangadji"),
+    "id.html must not duplicate site name in <title>"
+  );
+  assert.ok(
+    idHomeHtml.includes("<title>Wahabdin Sangadji</title>"),
+    "id.html must render exact home title"
+  );
+
+  const headerSource = fs.readFileSync(
+    path.resolve(process.cwd(), "src/components/site-header.tsx"),
+    "utf8"
+  );
+  assert.ok(
+    headerSource.includes("min-w-0 truncate") && headerSource.includes("text-base sm:text-xl"),
+    "SiteHeader wordmark must shrink/truncate cleanly at 320px viewports"
+  );
 });

@@ -40,10 +40,10 @@ export function SiteHeader({
         {copy.nav.skipToContent}
       </a>
 
-      <div className="mx-auto flex min-h-16 w-full max-w-[1120px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex min-h-16 w-full max-w-[1120px] items-center justify-between gap-2 sm:gap-4 px-4 sm:px-6 lg:px-8">
         <Link
           href={homeHref}
-          className="font-display text-xl font-normal tracking-tight text-ink whitespace-nowrap hover:text-signal transition-colors"
+          className="min-w-0 truncate font-display text-base sm:text-xl font-normal tracking-tight text-ink whitespace-nowrap hover:text-signal transition-colors"
         >
           {SITE_META.name}
         </Link>
@@ -71,7 +71,7 @@ export function SiteHeader({
           })}
         </nav>
 
-        <div className="flex shrink-0 items-center gap-3">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           <div
             role="group"
             aria-label="Language"
@@ -83,8 +83,8 @@ export function SiteHeader({
               aria-current={locale === "en" ? "true" : undefined}
               className={
                 locale === "en"
-                  ? "min-h-9 inline-flex items-center border-b-2 border-ink bg-paper-2 px-3 text-xs font-medium text-ink whitespace-nowrap"
-                  : "min-h-9 inline-flex items-center px-3 text-xs font-medium text-muted-ink hover:text-ink transition-colors whitespace-nowrap"
+                  ? "min-h-9 inline-flex items-center border-b-2 border-ink bg-paper-2 px-2.5 sm:px-3 text-xs font-medium text-ink whitespace-nowrap"
+                  : "min-h-9 inline-flex items-center px-2.5 sm:px-3 text-xs font-medium text-muted-ink hover:text-ink transition-colors whitespace-nowrap"
               }
             >
               EN
@@ -95,8 +95,8 @@ export function SiteHeader({
               aria-current={locale === "id" ? "true" : undefined}
               className={
                 locale === "id"
-                  ? "min-h-9 inline-flex items-center border-l border-ink border-b-2 bg-paper-2 px-3 text-xs font-medium text-ink whitespace-nowrap"
-                  : "min-h-9 inline-flex items-center border-l border-ink px-3 text-xs font-medium text-muted-ink hover:text-ink transition-colors whitespace-nowrap"
+                  ? "min-h-9 inline-flex items-center border-l border-ink border-b-2 bg-paper-2 px-2.5 sm:px-3 text-xs font-medium text-ink whitespace-nowrap"
+                  : "min-h-9 inline-flex items-center border-l border-ink px-2.5 sm:px-3 text-xs font-medium text-muted-ink hover:text-ink transition-colors whitespace-nowrap"
               }
             >
               ID

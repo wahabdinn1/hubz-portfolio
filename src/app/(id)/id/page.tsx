@@ -3,7 +3,7 @@ import { PortfolioHome } from "@/components/portfolio-home";
 import { SITE_CONTENT } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: SITE_CONTENT.id.meta.homeTitle,
+  title: { absolute: SITE_CONTENT.id.meta.homeTitle },
   description: SITE_CONTENT.id.meta.homeDescription,
   alternates: {
     canonical: "/id",
