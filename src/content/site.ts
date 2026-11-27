@@ -4,7 +4,7 @@ export const SITE_META = {
   name: "Wahabdin Sangadji",
   email: "wahabdinn@gmail.com",
   githubUrl: "https://github.com/wahabdinn1",
-  githubHandle: "github.com/wahabdinn1",
+  githubHandle: "@wahabdinn1",
   domain: "https://wahabdinn.my.id",
   domainLabel: "wahabdinn.my.id",
   appName: "Hubz Publisher",
@@ -82,6 +82,7 @@ export type SiteContent = {
     rightBody: string;
     stackLabel: string;
     stackList: string;
+    githubTitle: string;
     githubCta: string;
   };
   productPage: {
@@ -212,7 +213,8 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
         "Production code stays small, typed, and self-hosted where privacy matters. Most projects run on TypeScript, React, Node.js, SQLite, and Cloudflare edge hosting.",
       stackLabel: "Stack",
       stackList: "TypeScript, Next.js, React, Node.js, SQLite, Prisma, FFmpeg, Cloudflare",
-      githubCta: "Inspect repositories on GitHub",
+      githubTitle: "Dig into the code",
+      githubCta: "Browse web builds, automation tools, and repositories on GitHub.",
     },
     productPage: {
       backLabel: "Back to overview",
@@ -262,7 +264,7 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
     },
     footer: {
       operatorNote: "Operated by Wahabdin Sangadji at wahabdinn.my.id",
-      termsLabel: "Terms of Service",
+      termsLabel: "ToS",
       privacyLabel: "Privacy Policy",
       githubLabel: "GitHub",
       backToTop: "Top",
@@ -373,7 +375,8 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
         "Kode produksi dijaga ringkas, bertipe ketat, dan berjalan lokal saat privasi menjadi prioritas. Sebagian besar proyek memakai TypeScript, React, Node.js, SQLite, dan Cloudflare.",
       stackLabel: "Stack",
       stackList: "TypeScript, Next.js, React, Node.js, SQLite, Prisma, FFmpeg, Cloudflare",
-      githubCta: "Lihat repositori di GitHub",
+      githubTitle: "Intip kode & proyek",
+      githubCta: "Jelajahi proyek web, alat otomasi, dan repositori di GitHub.",
     },
     productPage: {
       backLabel: "Kembali ke beranda",
@@ -423,7 +426,7 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
     },
     footer: {
       operatorNote: "Dioperasikan oleh Wahabdin Sangadji di wahabdinn.my.id",
-      termsLabel: "Ketentuan Layanan",
+      termsLabel: "ToS",
       privacyLabel: "Kebijakan Privasi",
       githubLabel: "GitHub",
       backToTop: "Atas",

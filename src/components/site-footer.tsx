@@ -3,12 +3,12 @@
 import Link from "next/link";
 import {
   ArrowUp,
-  FolderGit2,
   Mail,
   Scale,
   Send,
   ShieldCheck,
 } from "lucide-react";
+import { GitHubIcon } from "@/components/github-icon";
 import { SITE_META } from "@/content/site";
 import { useI18n } from "@/lib/i18n";
 
@@ -46,7 +46,11 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
-              <Link href="/terms" className={FOOTER_LINK}>
+              <Link
+                href="/terms"
+                title={copy.specSection.termsLabel}
+                className={FOOTER_LINK}
+              >
                 <Scale className="size-3.5 shrink-0" strokeWidth={2.5} aria-hidden="true" />
                 <span>{copy.footer.termsLabel}</span>
               </Link>
@@ -64,7 +68,7 @@ export function SiteFooter() {
                 rel="noreferrer"
                 className={FOOTER_LINK}
               >
-                <FolderGit2 className="size-3.5 shrink-0" strokeWidth={2.5} aria-hidden="true" />
+                <GitHubIcon className="size-3.5 shrink-0" />
                 <span>{copy.footer.githubLabel}</span>
               </a>
             </li>

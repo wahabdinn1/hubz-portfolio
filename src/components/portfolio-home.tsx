@@ -5,11 +5,11 @@ import {
   ArrowUpRight,
   Briefcase,
   Clapperboard,
-  FolderGit2,
   Layers,
   Send,
 } from "lucide-react";
 import { CopyEmailButton } from "@/components/copy-email-button";
+import { GitHubIcon } from "@/components/github-icon";
 import { PageShell } from "@/components/page-shell";
 import { PlatformSpecs } from "@/components/platform-specs";
 import { SectionHeading } from "@/components/section-heading";
@@ -91,8 +91,8 @@ export function PortfolioHome() {
           >
             <span className="flex items-center justify-between gap-4">
               <span className="inline-flex items-center gap-2 font-bold">
-                <FolderGit2 className="size-5 text-main" strokeWidth={2.5} aria-hidden="true" />
-                <span>GitHub</span>
+                <GitHubIcon className="size-5 text-main" />
+                <span>{SITE_META.githubHandle}</span>
               </span>
               <ArrowUpRight
                 className="size-6 transition-transform group-hover:rotate-45"
@@ -100,11 +100,13 @@ export function PortfolioHome() {
                 aria-hidden="true"
               />
             </span>
-            <span className="space-y-1">
-              <span className="block break-all font-heading text-xl font-extrabold text-main sm:text-2xl">
-                {SITE_META.githubHandle}
+            <span className="space-y-1.5">
+              <span className="block font-heading text-2xl font-extrabold text-main">
+                {copy.practiceSection.githubTitle}
               </span>
-              <span className="block text-sm">{copy.practiceSection.githubCta}</span>
+              <span className="block text-sm text-secondary-background/90">
+                {copy.practiceSection.githubCta}
+              </span>
             </span>
           </a>
         </div>
