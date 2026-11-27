@@ -10,6 +10,13 @@
 
 **Spec:** [2026-11-27-hubz-porto-design.md](../specs/2026-11-27-hubz-porto-design.md)
 
+## Skills Map (Required During Execution)
+
+- **Workflow (`superpowers`):** `executing-plans` (or `subagent-driven-development`) for task-by-task execution, plus `verification-before-completion` before any completion claim.
+- **UI & Design Craft:** `hallmark` (`Specimen` theme, `layout.md`, `craft.md`, `sloplint --genre editorial`) paired with `ui-ux-pro-max` and `frontend-design` for responsive `320px-1920px` hierarchy, typography, and interaction states (Tasks 1, 3, 4, 5).
+- **Prose & Legal Copy:** `humanizer` on all EN/ID portfolio copy, `/terms`, `/privacy`, and `README.md` (Tasks 2, 5).
+- **Cloudflare, Performance & Docs:** `nextjs-on-cloudflare`, `wrangler`, `web-perf` (static export, zero layout shift, font loading, zero runtime JS bloat), and `context7` for verifying latest Next.js 16 / shadcn / Cloudflare API syntax when needed (Tasks 1, 5).
+
 ## Global Constraints
 
 - Project root: `C:\Users\habdinn\Documents\web-projects\hubz-porto` (on Windows PowerShell run `pnpm.cmd`).
