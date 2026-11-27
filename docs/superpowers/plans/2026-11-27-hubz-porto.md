@@ -44,23 +44,26 @@
   - `Table`, `TableHeader`, `TableBody`, `TableRow`, `TableHead`, `TableCell` in `src/components/ui/table.tsx`
   - Specimen CSS variables (`--color-paper`, `--color-paper-2`, `--color-ink`, `--color-muted`, `--color-rule`, `--color-rule-2`, `--color-accent`, `--color-accent-ink`, `--color-guide`, `--font-display`, `--font-body`, `--font-outlier`) in `src/app/globals.css`
 
-- [ ] **Step 1: Initialize Next.js 16 + Tailwind v4 + TypeScript + `shadcn/ui` dependencies**
+- [ ] **Step 1: Scaffold Next.js 16 and `shadcn/ui` strictly via `pnpm` CLIs (no hand-written `package.json` or `components.json`)**
 
-Create `package.json` with `next`, `react`, `react-dom`, `@base-ui/react`, `class-variance-authority`, `clsx`, `tailwind-merge`, `lucide-react`, plus dev dependencies `tailwindcss`, `@tailwindcss/postcss`, `typescript`, `@types/node`, `@types/react`, `@types/react-dom`, `eslint`, `eslint-config-next`, `tsx`. Scripts: `dev`, `build`, `lint`, `test` (`node --import tsx --test src/**/*.test.ts`). Run `pnpm.cmd install`.
+1. Scaffold via `pnpm.cmd create next-app@latest` into a temp directory (`--ts --tailwind --eslint --app --src-dir --import-alias "@/*" --use-pnpm --yes`), then move the generated files into `C:\Users\habdinn\Documents\web-projects\hubz-porto` without touching `docs/` or `.git/`.
+2. Initialize `shadcn/ui` via `pnpm.cmd dlx shadcn@latest init --defaults --yes` (or `--base base` / `--yes`), then add primitives via `pnpm.cmd dlx shadcn@latest add button separator table --yes`.
+3. Install `tsx` for `node:test` via `pnpm.cmd add -D tsx` and add `"test": "node --import tsx --test src/**/*.test.ts"` to `package.json`.
+4. Run `pnpm.cmd install` to ensure `pnpm-lock.yaml` is clean.
 
-- [ ] **Step 2: Write Next.js static export, TypeScript, ESLint, PostCSS, shadcn, Wrangler, and `.gitignore` configs**
+- [ ] **Step 2: Configure static export (`next.config.ts`), Cloudflare (`wrangler.jsonc`), and `.gitignore`**
 
-- `next.config.ts`: `output: "export"`, `images: { unoptimized: true }`.
-- `wrangler.jsonc`: `name: "hubz-porto"`, `compatibility_date: "2026-11-01"`, `assets: { directory: "./out", not_found_handling: "404-page" }`.
-- `.gitignore`: ignore `node_modules`, `.next`, `out`, `.wrangler`, `.env*`, `*.tsbuildinfo`, `next-env.d.ts`.
+- Update `next.config.ts` with `output: "export"` and `images: { unoptimized: true }`.
+- Create `wrangler.jsonc`: `name: "hubz-porto"`, `compatibility_date: "2026-11-01"`, `assets: { directory: "./out", not_found_handling: "404-page" }`.
+- Ensure `.gitignore` ignores `node_modules`, `.next`, `out`, `.wrangler`, `.env*`, `*.tsbuildinfo`, `next-env.d.ts`.
 
-- [ ] **Step 3: Write `src/app/globals.css` with Hallmark stamp + Specimen tokens + Tailwind `@theme inline`**
+- [ ] **Step 3: Style `src/app/globals.css` with Hallmark stamp + Specimen tokens + Tailwind `@theme inline`**
 
 Include the Hallmark stamp comment on line 1 (`theme: Specimen · dealt: 1/3, seed personal-portfolio-full-stack-developer-52de·0918bf70·2026-11-27·r0 · draw: 9e348e · genre: editorial`), declare all Specimen `:root` tokens verbatim from the spec, map shadcn variables to Specimen tokens, enforce `overflow-x: clip` on `html, body`, `Bodoni Moda` `400` (`"opsz" 96` on `h1, h2`), `:focus-visible` instant ink-blue outline, and `prefers-reduced-motion: reduce`.
 
-- [ ] **Step 4: Write `src/app/layout.tsx`, `src/lib/utils.ts`, and `shadcn/ui` primitives (`button.tsx`, `separator.tsx`, `table.tsx`)**
+- [ ] **Step 4: Update `src/app/layout.tsx` and tune the CLI-generated `shadcn/ui` primitives (`button.tsx`, `separator.tsx`) to Specimen geometry**
 
-Load `Bodoni_Moda`, `Geist`, and `Geist_Mono` via `next/font/google` in `src/app/layout.tsx` bound to `--font-bodoni`, `--font-geist`, and `--font-geist-mono` with `metadataBase: new URL("https://wahabdinn.my.id")`.
+Load `Bodoni_Moda`, `Geist`, and `Geist_Mono` via `next/font/google` in `src/app/layout.tsx` bound to `--font-bodoni`, `--font-geist`, and `--font-geist-mono` with `metadataBase: new URL("https://wahabdinn.my.id")`. Adjust `button.tsx` (`rounded-none`, `min-h-12` ink/outline variants) and `separator.tsx` (`hairline` + `double` variant) cleanly on top of the CLI-generated files.
 
 - [ ] **Step 5: Verify scaffold compiles cleanly**
 
