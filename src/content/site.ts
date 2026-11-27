@@ -148,7 +148,7 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
         name: "Hubz Publisher",
         summary:
           "Self-hosted publishing studio for batch-importing video kits, scheduling uploads to YouTube Shorts, Facebook Reels, Instagram Reels, and TikTok, posting optional first comments, and syncing cross-platform metrics in local SQLite.",
-        stack: "Next.js 16, TypeScript, Prisma, SQLite WAL, FFmpeg, Cloudflare Quick Tunnel",
+        stack: "Next.js 16, TypeScript, Prisma, SQLite WAL, FFmpeg, Cloudflare Quick Tunnel, OAuth 2.0, Multi-Platform Social APIs",
         href: "/apps/hubz-publisher",
         linkLabel: "Read specification",
       },
@@ -310,7 +310,7 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
         name: "Hubz Publisher",
         summary:
           "Studio publikasi self-hosted untuk impor batch kit video, penjadwalan ke YouTube Shorts, Facebook Reels, Instagram Reels, dan TikTok, komentar pertama otomatis, serta sinkronisasi analitik di SQLite lokal.",
-        stack: "Next.js 16, TypeScript, Prisma, SQLite WAL, FFmpeg, Cloudflare Quick Tunnel",
+        stack: "Next.js 16, TypeScript, Prisma, SQLite WAL, FFmpeg, Cloudflare Quick Tunnel, OAuth 2.0, Multi-Platform Social APIs",
         href: "/apps/hubz-publisher",
         linkLabel: "Baca spesifikasi",
       },
