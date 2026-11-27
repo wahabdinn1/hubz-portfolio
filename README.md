@@ -11,7 +11,7 @@ Personal portfolio and public API legal portal for **Wahabdin Sangadji**, publis
 - **Framework:** Next.js 16 (App Router, `output: "export"`) + React 19 + TypeScript
 - **Styling & UI:** Tailwind CSS v4, Neobrutalism components (`neobrutalism.dev` registry on `@base-ui/react`), `lucide-react`, custom GitHub SVG icon
 - **Typography:** `Archivo` (variable display & body) and `JetBrains Mono` (OAuth scope codes)
-- **Accessibility & polish:** `prefers-reduced-motion` support, hover/focus pause plus dedicated pause/play dock on the marquee, explicit `:focus-visible` and `:active` states, single-row desktop footer, responsive mobile cards for platform specs
+- **Accessibility & polish:** `prefers-reduced-motion` support, hover/focus pause on the marquee, explicit `:focus-visible` and `:active` states, single-row desktop footer, responsive mobile cards for platform specs
 
 ## Routes & Client i18n
 
@@ -20,10 +20,13 @@ Every route exports static English HTML by default (`<html lang="en">`) so crawl
 | Route | Exported file | Purpose |
 | --- | --- | --- |
 | `/` | `out/index.html` | Portfolio overview, selected work (`Hubz Publisher`, `Hubz Video`), platform API table, roles, and stack |
-| `/apps/hubz-publisher` | `out/apps/hubz-publisher.html` | Product specification, 4-step workflow, OAuth scopes, and local security architecture |
+| `/works` | `out/works.html` | Works index listing production projects (`Hubz Publisher`, `Hubz Video`) |
+| `/works/hubz-publisher` | `out/works/hubz-publisher.html` | Product specification, 4-step workflow, OAuth scopes, and local security architecture |
 | `/terms` | `out/terms.html` | Terms of Service for `wahabdinn.my.id` and `Hubz Publisher` |
 | `/privacy` | `out/privacy.html` | Privacy Policy for `wahabdinn.my.id` and `Hubz Publisher` |
 | `/404` | `out/404.html` | Custom static 404 page |
+
+Legacy `/apps/hubz-publisher` permanently redirects (`301`) to `/works/hubz-publisher` via `public/_redirects`.
 
 ## Local Development & Verification
 
@@ -58,7 +61,7 @@ npx wrangler deploy
 ## Developer Portal URLs (TikTok / Google / Meta)
 
 - **App Name:** `Hubz Publisher`
-- **Website URL:** `https://wahabdinn.my.id/apps/hubz-publisher`
+- **Website URL:** `https://wahabdinn.my.id/works/hubz-publisher`
 - **Terms of Service URL:** `https://wahabdinn.my.id/terms`
 - **Privacy Policy URL:** `https://wahabdinn.my.id/privacy`
 - **TikTok Domain Verification:** Add the `TXT` record issued by TikTok for Developers directly in Cloudflare DNS for `wahabdinn.my.id`.

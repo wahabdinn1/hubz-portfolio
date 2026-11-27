@@ -5,49 +5,66 @@ import test from "node:test";
 
 const OUT_DIR = path.resolve(process.cwd(), "out");
 
-const EXPECTED_HTML_FILES = [
+const EXPECTED_FILES = [
   "index.html",
-  "apps/hubz-publisher.html",
+  "works.html",
+  "works/hubz-publisher.html",
   "terms.html",
   "privacy.html",
   "404.html",
+  "_redirects",
 ];
 
-test("static export generates unified routes and 404.html with complete crawler-readable EN HTML", (t) => {
+test("static export generates unified routes, /works, redirects, and 404.html with crawler-readable EN HTML", (t) => {
   if (!fs.existsSync(OUT_DIR)) {
     t.skip("Run `pnpm build` before verifying static HTML output in out/.");
     return;
   }
 
-  for (const relPath of EXPECTED_HTML_FILES) {
+  for (const relPath of EXPECTED_FILES) {
     const fullPath = path.join(OUT_DIR, relPath);
-    assert.ok(fs.existsSync(fullPath), `Missing exported static HTML: ${relPath}`);
+    assert.ok(fs.existsSync(fullPath), `Missing exported static file: ${relPath}`);
   }
 
-  // Ensure legacy /id/* static directories or files are completely removed
   assert.ok(!fs.existsSync(path.join(OUT_DIR, "id.html")), "Legacy id.html must not be generated");
   assert.ok(!fs.existsSync(path.join(OUT_DIR, "id")), "Legacy /id directory must not be generated");
+  assert.ok(
+    !fs.existsSync(path.join(OUT_DIR, "apps/hubz-publisher.html")),
+    "Legacy apps/hubz-publisher.html must not be generated"
+  );
+
+  const redirects = fs.readFileSync(path.join(OUT_DIR, "_redirects"), "utf8");
+  assert.ok(
+    redirects.includes("/apps/hubz-publisher /works/hubz-publisher 301"),
+    "_redirects must 301 redirect legacy /apps/hubz-publisher to /works/hubz-publisher"
+  );
 
   const homeHtml = fs.readFileSync(path.join(OUT_DIR, "index.html"), "utf8");
+  const worksHtml = fs.readFileSync(path.join(OUT_DIR, "works.html"), "utf8");
   const termsHtml = fs.readFileSync(path.join(OUT_DIR, "terms.html"), "utf8");
   const privacyHtml = fs.readFileSync(path.join(OUT_DIR, "privacy.html"), "utf8");
   const productHtml = fs.readFileSync(
-    path.join(OUT_DIR, "apps/hubz-publisher.html"),
+    path.join(OUT_DIR, "works/hubz-publisher.html"),
     "utf8"
   );
 
   for (const [label, html] of [
     ["index.html", homeHtml],
+    ["works.html", worksHtml],
     ["terms.html", termsHtml],
     ["privacy.html", privacyHtml],
-    ["apps/hubz-publisher.html", productHtml],
+    ["works/hubz-publisher.html", productHtml],
   ]) {
     assert.match(html, /<html[^>]*\blang="en"/, `${label} must default to lang="en"`);
     assert.ok(html.includes("Wahabdin Sangadji"), `${label} missing operator name`);
     assert.ok(html.includes("Hubz Publisher"), `${label} missing app name`);
     assert.ok(html.includes("wahabdinn@gmail.com"), `${label} missing contact email`);
     assert.doesNotMatch(html, /\b(TBD|Lorem ipsum)\b/i, `${label} contains placeholder text`);
-    assert.doesNotMatch(html, /font-display|editorial-link|Bodoni|specimen-guide/, `${label} contains Hallmark Specimen leftovers`);
+    assert.doesNotMatch(
+      html,
+      /font-display|editorial-link|Bodoni|specimen-guide/,
+      `${label} contains Hallmark Specimen leftovers`
+    );
   }
 
   for (const keyword of ["TikTok", "YouTube", "Meta", "user.info.basic", "video.upload"]) {

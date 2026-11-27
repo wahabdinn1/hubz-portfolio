@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: SITE_CONTENT.en.meta.productTitle,
   description: SITE_CONTENT.en.meta.productDescription,
   alternates: {
-    canonical: "/apps/hubz-publisher",
+    canonical: "/works/hubz-publisher",
   },
 };
 

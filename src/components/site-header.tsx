@@ -13,11 +13,16 @@ export function SiteHeader({ pathname }: { pathname: string }) {
   const { locale, setLocale, site: copy } = useI18n();
 
   const navItems = [
-    { label: copy.nav.work, href: "/#work" },
-    { label: copy.nav.product, href: "/apps/hubz-publisher" },
+    { label: copy.nav.home, href: "/" },
+    { label: copy.nav.works, href: "/works" },
     { label: copy.nav.terms, href: "/terms" },
     { label: copy.nav.privacy, href: "/privacy" },
   ];
+
+  const isActive = (href: string) =>
+    href === "/"
+      ? pathname === "/"
+      : pathname === href || pathname.startsWith(`${href}/`);
 
   const langButton = (target: Locale, label: string) => {
     const active = locale === target;
@@ -65,7 +70,7 @@ export function SiteHeader({ pathname }: { pathname: string }) {
 
         <nav aria-label="Primary navigation" className="hidden items-center gap-1 lg:flex">
           {navItems.map((item) => {
-            const active = pathname === item.href;
+            const active = isActive(item.href);
             return (
               <Link
                 key={item.href}
@@ -125,7 +130,7 @@ export function SiteHeader({ pathname }: { pathname: string }) {
         >
           <ul className="mx-auto flex max-w-[1200px] flex-col gap-3">
             {navItems.map((item) => {
-              const active = pathname === item.href;
+              const active = isActive(item.href);
               return (
                 <li key={item.href}>
                   <Link

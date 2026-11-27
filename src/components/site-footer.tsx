@@ -40,7 +40,7 @@ export function SiteFooter() {
         <nav aria-label="Footer navigation" className="shrink-0">
           <ul className="flex flex-wrap items-center gap-2.5 lg:flex-nowrap">
             <li>
-              <Link href="/apps/hubz-publisher" className={FOOTER_LINK}>
+              <Link href="/works/hubz-publisher" className={FOOTER_LINK}>
                 <Send className="size-3.5 shrink-0" strokeWidth={2.5} aria-hidden="true" />
                 <span>{SITE_META.appName}</span>
               </Link>

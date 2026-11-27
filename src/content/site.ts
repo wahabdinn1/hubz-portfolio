@@ -32,12 +32,14 @@ export type SiteContent = {
   meta: {
     homeTitle: string;
     homeDescription: string;
+    worksTitle: string;
+    worksDescription: string;
     productTitle: string;
     productDescription: string;
   };
   nav: {
-    work: string;
-    product: string;
+    home: string;
+    works: string;
     terms: string;
     privacy: string;
     emailAction: string;
@@ -46,8 +48,6 @@ export type SiteContent = {
     skipToContent: string;
     onThisPage: string;
     marqueeLabel: string;
-    marqueePause: string;
-    marqueePlay: string;
   };
   hero: {
     roles: string;
@@ -87,6 +87,13 @@ export type SiteContent = {
     githubTitle: string;
     githubCta: string;
   };
+  worksPage: {
+    backLabel: string;
+    heading: string;
+    subtitle: string;
+    ctaHeading: string;
+    ctaBody: string;
+  };
   productPage: {
     backLabel: string;
     heading: string;
@@ -116,13 +123,16 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
       homeTitle: "Wahabdin Sangadji",
       homeDescription:
         "Wahabdin Sangadji, Associate Partner Technology IAI, Admin, and Full-Stack Developer. Creator of Hubz Publisher and Hubz Video.",
+      worksTitle: "Works",
+      worksDescription:
+        "Production systems built and maintained by Wahabdin Sangadji, including Hubz Publisher and Hubz Video.",
       productTitle: "Hubz Publisher",
       productDescription:
         "Self-hosted short-form video publishing studio for YouTube Shorts, Facebook Reels, Instagram Reels, and TikTok Inbox Drafts.",
     },
     nav: {
-      work: "Work",
-      product: "Hubz Publisher",
+      home: "Home",
+      works: "Works",
       terms: "Terms",
       privacy: "Privacy",
       emailAction: "Email",
@@ -131,8 +141,6 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
       skipToContent: "Skip to main content",
       onThisPage: "On this page",
       marqueeLabel: "Platforms and stack",
-      marqueePause: "Pause scrolling ticker",
-      marqueePlay: "Play scrolling ticker",
     },
     hero: {
       roles: "Associate Partner Technology IAI, Admin, and Full-Stack Developer",
@@ -153,7 +161,7 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
         summary:
           "Self-hosted publishing studio for batch-importing video kits, scheduling uploads to YouTube Shorts, Facebook Reels, Instagram Reels, and TikTok, posting optional first comments, and syncing cross-platform metrics in local SQLite.",
         stack: "Next.js 16, TypeScript, Prisma, SQLite WAL, FFmpeg, Cloudflare Quick Tunnel, OAuth 2.0, Multi-Platform Social APIs",
-        href: "/apps/hubz-publisher",
+        href: "/works/hubz-publisher",
         linkLabel: "Read specification",
       },
       {
@@ -220,8 +228,17 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
       githubTitle: "Dig into the code",
       githubCta: "Browse web builds, automation tools, and repositories on GitHub.",
     },
+    worksPage: {
+      backLabel: "Back to home",
+      heading: "Works",
+      subtitle:
+        "Self-hosted web applications, automation tools, and short-form video pipelines built and operated by Wahabdin Sangadji.",
+      ctaHeading: "Need technical collaboration?",
+      ctaBody:
+        "Reach out directly for web engineering, local automation tooling, or API integration inquiries.",
+    },
     productPage: {
-      backLabel: "Back to overview",
+      backLabel: "Back to works",
       heading: "Hubz Publisher",
       subtitle:
         "A self-hosted desktop-local publishing studio operated by Wahabdin Sangadji for scheduling original short-form videos across YouTube, Facebook, Instagram, and TikTok.",
@@ -280,13 +297,16 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
       homeTitle: "Wahabdin Sangadji",
       homeDescription:
         "Wahabdin Sangadji, Associate Partner Technology IAI, Admin, dan Full-Stack Developer. Pembuat Hubz Publisher dan Hubz Video.",
+      worksTitle: "Karya",
+      worksDescription:
+        "Sistem produksi yang dibangun dan dikelola oleh Wahabdin Sangadji, termasuk Hubz Publisher dan Hubz Video.",
       productTitle: "Hubz Publisher",
       productDescription:
         "Studio publikasi video pendek self-hosted untuk YouTube Shorts, Facebook Reels, Instagram Reels, dan TikTok Inbox Draft.",
     },
     nav: {
-      work: "Karya",
-      product: "Hubz Publisher",
+      home: "Beranda",
+      works: "Karya",
       terms: "Ketentuan",
       privacy: "Privasi",
       emailAction: "Email",
@@ -295,8 +315,6 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
       skipToContent: "Lompat ke konten utama",
       onThisPage: "Di halaman ini",
       marqueeLabel: "Platform dan stack",
-      marqueePause: "Jeda teks berjalan",
-      marqueePlay: "Jalankan teks berjalan",
     },
     hero: {
       roles: "Associate Partner Technology IAI, Admin, dan Full-Stack Developer",
@@ -317,7 +335,7 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
         summary:
           "Studio publikasi self-hosted untuk impor batch kit video, penjadwalan ke YouTube Shorts, Facebook Reels, Instagram Reels, dan TikTok, komentar pertama otomatis, serta sinkronisasi analitik di SQLite lokal.",
         stack: "Next.js 16, TypeScript, Prisma, SQLite WAL, FFmpeg, Cloudflare Quick Tunnel, OAuth 2.0, Multi-Platform Social APIs",
-        href: "/apps/hubz-publisher",
+        href: "/works/hubz-publisher",
         linkLabel: "Baca spesifikasi",
       },
       {
@@ -384,8 +402,17 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
       githubTitle: "Intip kode & proyek",
       githubCta: "Jelajahi proyek web, alat otomasi, dan repositori di GitHub.",
     },
-    productPage: {
+    worksPage: {
       backLabel: "Kembali ke beranda",
+      heading: "Karya",
+      subtitle:
+        "Aplikasi web self-hosted, alat otomasi, dan pipeline video pendek yang dibangun dan dikelola oleh Wahabdin Sangadji.",
+      ctaHeading: "Butuh kolaborasi teknis?",
+      ctaBody:
+        "Hubungi langsung untuk kebutuhan pengembangan web, otomasi lokal, atau integrasi API.",
+    },
+    productPage: {
+      backLabel: "Kembali ke karya",
       heading: "Hubz Publisher",
       subtitle:
         "Studio publikasi lokal self-hosted yang dioperasikan Wahabdin Sangadji untuk menjadwalkan video pendek orisinal ke YouTube, Facebook, Instagram, dan TikTok.",

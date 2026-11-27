@@ -28,9 +28,9 @@ export function HubzPublisherPage() {
   const page = copy.productPage;
 
   return (
-    <PageShell pathname="/apps/hubz-publisher">
+    <PageShell pathname="/works/hubz-publisher">
       <div className="pt-8">
-        <BackLink href="/" label={page.backLabel} />
+        <BackLink href="/works" label={page.backLabel} />
       </div>
 
       <section
