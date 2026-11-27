@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hubz Porto (`wahabdinn.my.id`)
 
-## Getting Started
+Personal portfolio for **Wahabdin Sangadji** (Associate Partner Technology IAI, Admin, and Full-Stack Developer) and official public documentation portal for **Hubz Publisher**, built with Next.js 16 static export (`output: "export"`), `shadcn/ui`, and the Hallmark Specimen editorial system.
 
-First, run the development server:
+## Routes
+
+| Route | Language | Purpose |
+| --- | --- | --- |
+| `/` | English (default) | Portfolio overview, selected work, and Hubz Publisher platform envelope |
+| `/id` | Bahasa Indonesia | Indonesian portfolio overview |
+| `/apps/hubz-publisher` | English | Dedicated Hubz Publisher specification and API scope page |
+| `/id/apps/hubz-publisher` | Bahasa Indonesia | Indonesian Hubz Publisher page |
+| `/terms` | English (authoritative) | Terms of Service for TikTok, Google, and Meta API review |
+| `/id/terms` | Bahasa Indonesia | Indonesian translation of Terms of Service |
+| `/privacy` | English (authoritative) | Privacy Policy for TikTok, Google, and Meta API review |
+| `/id/privacy` | Bahasa Indonesia | Indonesian translation of Privacy Policy |
+
+## Local Development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm dev    # Start local Next.js dev server
+pnpm lint   # Run ESLint
+pnpm build  # Export all static routes into ./out
+pnpm test   # Run unit tests + exported HTML smoke tests
+```
 
-## Learn More
+## Deploy to Cloudflare (`wahabdinn.my.id`)
 
-To learn more about Next.js, take a look at the following resources:
+### Option A: Cloudflare Pages (Recommended)
+1. Push this repository to GitHub (private or public).
+2. In the Cloudflare Dashboard, open **Workers & Pages -> Create -> Pages -> Connect to Git** and select this repository.
+3. Configure the build settings:
+   - **Framework preset:** None (or Next.js Static HTML Export)
+   - **Build command:** `pnpm build`
+   - **Build output directory:** `out`
+   - **Node version:** `22` (via environment variable `NODE_VERSION=22` if needed)
+4. After the first deploy succeeds, open **Custom domains -> Set up a custom domain** and add `wahabdinn.my.id`. Because the zone is already managed by Cloudflare, DNS and SSL configure automatically.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Option B: Cloudflare Workers Static Assets (`wrangler.jsonc`)
+`wrangler.jsonc` is pre-configured to serve `./out` with `404-page` handling:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+pnpm build
+pnpm dlx wrangler deploy
+```
 
-## Deploy on Vercel
+Then attach `wahabdinn.my.id` under **Settings -> Domains & Routes** in Cloudflare.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Developer Portal URLs (TikTok, Google, Meta)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Use these canonical English URLs once `https://wahabdinn.my.id` is live:
+
+- **Website / App URL:** `https://wahabdinn.my.id/apps/hubz-publisher` (or `https://wahabdinn.my.id`)
+- **Terms of Service URL:** `https://wahabdinn.my.id/terms`
+- **Privacy Policy URL:** `https://wahabdinn.my.id/privacy`
+- **Contact email:** `wahabdinn@gmail.com`
+
+For TikTok domain verification, add the TXT record provided by the TikTok Developer Portal directly in your Cloudflare DNS dashboard for `wahabdinn.my.id`.
