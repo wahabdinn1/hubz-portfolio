@@ -32,9 +32,10 @@
 ### Task 1: Project Scaffold, Specimen Tokens & Cloudflare Export Config
 
 **Files:**
-- Create: `package.json`, `tsconfig.json`, `next.config.ts`, `postcss.config.mjs`, `eslint.config.mjs`, `components.json`, `wrangler.jsonc`, `.gitignore`
-- Create: `src/app/globals.css`, `src/app/layout.tsx`, `src/lib/utils.ts`
-- Create: `src/components/ui/button.tsx`, `src/components/ui/separator.tsx`, `src/components/ui/table.tsx`
+- Generated via `pnpm create next-app@latest`: `package.json`, `pnpm-lock.yaml`, `tsconfig.json`, `next.config.ts`, `postcss.config.mjs`, `eslint.config.mjs`, `.gitignore`, `src/app/globals.css`, `src/app/layout.tsx`
+- Generated via `pnpm dlx shadcn@latest init` & `add`: `components.json`, `src/lib/utils.ts`, `src/components/ui/button.tsx`, `src/components/ui/separator.tsx`, `src/components/ui/table.tsx`
+- Create: `wrangler.jsonc`
+- Modify (after CLI generation): `package.json` (`test` script), `next.config.ts`, `.gitignore`, `src/app/globals.css`, `src/app/layout.tsx`, `src/components/ui/button.tsx`, `src/components/ui/separator.tsx`
 
 **Interfaces:**
 - Produces:
