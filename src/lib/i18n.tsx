@@ -25,17 +25,25 @@ const I18nContext = createContext<I18nContextValue>({
 });
 
 const listeners = new Set<() => void>();
+let memoryLocale: Locale | null = null;
 
 function subscribe(callback: () => void) {
   listeners.add(callback);
-  window.addEventListener("storage", callback);
+  const onStorage = (event: StorageEvent) => {
+    if (event.key === null || event.key === LOCALE_STORAGE_KEY) {
+      memoryLocale = event.newValue === null ? null : parseLocale(event.newValue);
+      callback();
+    }
+  };
+  window.addEventListener("storage", onStorage);
   return () => {
     listeners.delete(callback);
-    window.removeEventListener("storage", callback);
+    window.removeEventListener("storage", onStorage);
   };
 }
 
 function getSnapshot(): Locale {
+  if (memoryLocale !== null) return memoryLocale;
   try {
     return parseLocale(window.localStorage.getItem(LOCALE_STORAGE_KEY));
   } catch {
@@ -55,10 +63,11 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
   }, [locale]);
 
   const setLocale = useCallback((next: Locale) => {
+    memoryLocale = next;
     try {
       window.localStorage.setItem(LOCALE_STORAGE_KEY, next);
     } catch {
-      // Ignore storage write errors in restricted browsers.
+      // Keep the selected locale in memory when browser storage is blocked.
     }
     listeners.forEach((listener) => listener());
   }, []);

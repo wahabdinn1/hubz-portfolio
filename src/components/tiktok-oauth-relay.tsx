@@ -2,26 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-
-const LOCAL_CALLBACK_BASE = "http://localhost:3000/api/oauth/tiktok/callback";
-const ALLOWED_PARAMS = ["code", "state", "scopes", "error", "error_description"] as const;
-
-function buildLocalForwardUrl(search: string): string | null {
-  const incoming = new URLSearchParams(search);
-  const outgoing = new URLSearchParams();
-  let hasAny = false;
-
-  for (const key of ALLOWED_PARAMS) {
-    const value = incoming.get(key);
-    if (value !== null) {
-      outgoing.set(key, value);
-      hasAny = true;
-    }
-  }
-
-  if (!hasAny) return null;
-  return `${LOCAL_CALLBACK_BASE}?${outgoing.toString()}`;
-}
+import { buildLocalForwardUrl } from "@/lib/tiktok-oauth";
 
 export function TikTokOAuthRelay() {
   const [targetUrl, setTargetUrl] = useState<string | null>(null);
@@ -35,7 +16,8 @@ export function TikTokOAuthRelay() {
       setChecked(true);
     });
     if (forward) {
-      window.location.replace(forward);
+      // Keep this page in session history so Back restores the fallback link if localhost:3000 is down.
+      window.location.assign(forward);
     }
   }, []);
 

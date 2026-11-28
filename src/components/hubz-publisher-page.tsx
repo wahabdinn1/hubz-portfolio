@@ -17,7 +17,7 @@ import { BackLink } from "@/components/back-link";
 import { PageShell } from "@/components/page-shell";
 import { PlatformSpecs } from "@/components/platform-specs";
 import { SectionHeading } from "@/components/section-heading";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { SITE_META } from "@/content/site";
 import { useI18n } from "@/lib/i18n";
 
@@ -53,24 +53,20 @@ export function HubzPublisherPage() {
         </div>
         <p className="max-w-[60ch] text-lg sm:text-xl">{page.subtitle}</p>
         <div className="flex flex-wrap items-center gap-4">
-          <Button
-            variant="dark"
-            size="lg"
-            nativeButton={false}
-            render={<Link href="/terms" />}
+          <Link
+            href="/terms"
+            className={buttonVariants({ variant: "dark", size: "lg" })}
           >
             <Scale strokeWidth={2.5} aria-hidden="true" />
             <span>{copy.specSection.termsLabel}</span>
-          </Button>
-          <Button
-            variant="neutral"
-            size="lg"
-            nativeButton={false}
-            render={<Link href="/privacy" />}
+          </Link>
+          <Link
+            href="/privacy"
+            className={buttonVariants({ variant: "neutral", size: "lg" })}
           >
             <ShieldCheck strokeWidth={2.5} aria-hidden="true" />
             <span>{copy.specSection.privacyLabel}</span>
-          </Button>
+          </Link>
         </div>
       </section>
 
@@ -161,16 +157,16 @@ export function HubzPublisherPage() {
           </div>
           <p>{page.legalIntro}</p>
           <div className="flex flex-col items-start gap-4">
-            <Button nativeButton={false} render={<Link href="/terms" />}>
+            <Link href="/terms" className={buttonVariants()}>
               <Scale strokeWidth={2.5} aria-hidden="true" />
               <span>{copy.specSection.termsLabel}</span>
               <ArrowUpRight strokeWidth={2.5} aria-hidden="true" />
-            </Button>
-            <Button variant="neutral" nativeButton={false} render={<Link href="/privacy" />}>
+            </Link>
+            <Link href="/privacy" className={buttonVariants({ variant: "neutral" })}>
               <ShieldCheck strokeWidth={2.5} aria-hidden="true" />
               <span>{copy.specSection.privacyLabel}</span>
               <ArrowUpRight strokeWidth={2.5} aria-hidden="true" />
-            </Button>
+            </Link>
             <a
               href={`mailto:${SITE_META.email}`}
               className="text-link inline-flex items-center gap-2 break-all"

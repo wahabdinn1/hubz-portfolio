@@ -5,7 +5,7 @@ import { BookOpen, Calendar, Mail, Scale, ShieldCheck } from "lucide-react";
 import { BackLink } from "@/components/back-link";
 import { PageShell } from "@/components/page-shell";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { SITE_META } from "@/content/site";
 import { useI18n } from "@/lib/i18n";
 
@@ -119,13 +119,12 @@ export function LegalDocumentPage({ doc }: { doc: "terms" | "privacy" }) {
           </div>
 
           <footer className="flex flex-wrap items-center justify-between gap-4 border-t-3 border-border bg-background p-6 sm:px-10">
-            <Button
-              variant="neutral"
-              nativeButton={false}
-              render={<Link href={documentData.otherDocPath} />}
+            <Link
+              href={documentData.otherDocPath}
+              className={buttonVariants({ variant: "neutral" })}
             >
               {documentData.otherDocLabel}
-            </Button>
+            </Link>
             <a
               href={`mailto:${SITE_META.email}`}
               className="text-link inline-flex items-center gap-2 break-all"

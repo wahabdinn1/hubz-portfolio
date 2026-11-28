@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Mail, Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { SITE_META } from "@/content/site";
 import { useI18n } from "@/lib/i18n";
 import type { Locale } from "@/lib/locale";
@@ -98,15 +98,13 @@ export function SiteHeader({ pathname }: { pathname: string }) {
             {langButton("id", "ID")}
           </div>
 
-          <Button
-            size="sm"
-            nativeButton={false}
-            render={<a href={`mailto:${SITE_META.email}`} />}
-            className="hidden sm:inline-flex"
+          <a
+            href={`mailto:${SITE_META.email}`}
+            className={buttonVariants({ size: "sm", className: "hidden sm:inline-flex" })}
           >
             <Mail strokeWidth={2.5} aria-hidden="true" />
             <span>{copy.nav.emailAction}</span>
-          </Button>
+          </a>
 
           <Button
             variant="neutral"

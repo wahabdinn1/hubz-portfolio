@@ -3,7 +3,6 @@
 /* Hallmark · waive 7b · surface: absolute declared in stamp · Hubz Publisher neobrutalism relies on pure black borders and white cards for crisp hard-shadow contrast */
 /* Hallmark · dismissed 54 · SectionHeading renders semantic h2 headings inside section-heading.tsx */
 @import "tailwindcss";
-@import "tw-animate-css";
 
 :root {
   color-scheme: light;
@@ -11,7 +10,6 @@
   --background: #e8edff;
   --secondary-background: #ffffff;
   --foreground: #000000;
-  --muted-foreground: #2b2b2b;
   --main: #ffd23f;
   --main-foreground: #000000;
   --coral: #ff7a5c;
@@ -19,7 +17,6 @@
   --mint: #6ee7b7;
   --border: #000000;
   --ring: #000000;
-  --overlay: rgb(0 0 0 / 0.8);
   --dot: rgb(0 0 0 / 0.14);
 
   --shadow: 5px 5px 0px 0px var(--border);
@@ -30,7 +27,6 @@
   --color-background: var(--background);
   --color-secondary-background: var(--secondary-background);
   --color-foreground: var(--foreground);
-  --color-muted-foreground: var(--muted-foreground);
   --color-main: var(--main);
   --color-main-foreground: var(--main-foreground);
   --color-coral: var(--coral);
@@ -38,12 +34,9 @@
   --color-mint: var(--mint);
   --color-border: var(--border);
   --color-ring: var(--ring);
-  --color-overlay: var(--overlay);
 
   --spacing-boxShadowX: 5px;
   --spacing-boxShadowY: 5px;
-  --spacing-reverseBoxShadowX: -5px;
-  --spacing-reverseBoxShadowY: -5px;
   --radius-base: 10px;
   --font-weight-base: 500;
   --font-weight-heading: 800;

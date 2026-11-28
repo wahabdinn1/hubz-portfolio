@@ -28,6 +28,14 @@ test("SITE_CONTENT keeps EN/ID parity, real owner facts, zero placeholders, and 
   assert.equal(SITE_CONTENT.en.platformSpecs.length, 4);
   assert.equal(SITE_CONTENT.id.platformSpecs.length, 4);
 
+  for (const locale of ["en", "id"] as const) {
+    const yt = SITE_CONTENT[locale].platformSpecs.find((row) => row.platform === "YouTube Shorts");
+    assert.ok(yt, `Missing YouTube Shorts spec in ${locale}`);
+    assert.ok(!yt.scopes.includes("youtube.force-ssl"), `youtube.force-ssl must be optional in ${locale}`);
+    assert.equal(yt.optionalScopes, "youtube.force-ssl");
+    assert.ok(SITE_CONTENT[locale].notFound.heading.length > 0);
+  }
+
   const combined = JSON.stringify(SITE_CONTENT);
   assert.doesNotMatch(combined, /\b(TBD|TODO|Lorem ipsum)\b/i);
   assert.doesNotMatch(SITE_CONTENT.en.hero.roles, /·/);

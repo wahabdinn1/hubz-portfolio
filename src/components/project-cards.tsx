@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ArrowUpRight, Clapperboard, Send } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { ProjectEntry } from "@/content/site";
 
@@ -46,10 +46,10 @@ export function ProjectCards({ projects }: { projects: ProjectEntry[] }) {
                 </ul>
                 {project.href && project.linkLabel && (
                   <div className="mt-auto pt-2">
-                    <Button nativeButton={false} render={<Link href={project.href} />}>
+                    <Link href={project.href} className={buttonVariants()}>
                       <span>{project.linkLabel}</span>
                       <ArrowUpRight strokeWidth={2.5} aria-hidden="true" />
-                    </Button>
+                    </Link>
                   </div>
                 )}
               </CardContent>

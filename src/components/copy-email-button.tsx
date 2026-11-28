@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check, Copy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -16,12 +16,27 @@ export function CopyEmailButton({
   variant?: "default" | "neutral" | "dark";
 }) {
   const [copied, setCopied] = useState(false);
+  const timerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current !== null) {
+        window.clearTimeout(timerRef.current);
+      }
+    };
+  }, []);
 
   async function handleCopy() {
     try {
       await navigator.clipboard.writeText(email);
       setCopied(true);
-      window.setTimeout(() => setCopied(false), 2200);
+      if (timerRef.current !== null) {
+        window.clearTimeout(timerRef.current);
+      }
+      timerRef.current = window.setTimeout(() => {
+        setCopied(false);
+        timerRef.current = null;
+      }, 2200);
     } catch {
       window.location.href = `mailto:${email}`;
     }

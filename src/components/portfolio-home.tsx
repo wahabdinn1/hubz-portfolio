@@ -9,7 +9,7 @@ import { PlatformSpecs } from "@/components/platform-specs";
 import { ProjectCards } from "@/components/project-cards";
 import { SectionHeading } from "@/components/section-heading";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Marquee from "@/components/ui/marquee";
 import { SITE_META } from "@/content/site";
@@ -43,16 +43,14 @@ export function PortfolioHome() {
           <div className="space-y-6">
             <p className="max-w-[42ch] text-lg sm:text-xl">{copy.hero.statement}</p>
             <div className="flex flex-wrap items-center gap-4">
-              <Button
-                variant="dark"
-                size="lg"
-                nativeButton={false}
-                render={<Link href="/works/hubz-publisher" />}
+              <Link
+                href="/works/hubz-publisher"
+                className={buttonVariants({ variant: "dark", size: "lg" })}
               >
                 <Send strokeWidth={2.5} aria-hidden="true" />
                 <span>{copy.hero.primaryCta}</span>
                 <ArrowUpRight strokeWidth={2.5} aria-hidden="true" />
-              </Button>
+              </Link>
               <CopyEmailButton
                 email={SITE_META.email}
                 label={copy.hero.copyEmailLabel}

@@ -11,7 +11,6 @@ export const SITE_META = {
 } as const;
 
 export type ProjectEntry = {
-  index: string;
   name: string;
   summary: string;
   stack: string;
@@ -28,7 +27,6 @@ export type PlatformSpecRow = {
 };
 
 export type SiteContent = {
-  htmlLang: string;
   meta: {
     homeTitle: string;
     homeDescription: string;
@@ -114,11 +112,16 @@ export type SiteContent = {
     githubLabel: string;
     backToTop: string;
   };
+  notFound: {
+    heading: string;
+    body: string;
+    homeCta: string;
+    termsCta: string;
+  };
 };
 
 export const SITE_CONTENT: Record<Locale, SiteContent> = {
   en: {
-    htmlLang: "en",
     meta: {
       homeTitle: "Wahabdin Sangadji",
       homeDescription:
@@ -156,7 +159,6 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
     },
     projects: [
       {
-        index: "01",
         name: "Hubz Publisher",
         summary:
           "Self-hosted publishing studio for batch-importing video kits, scheduling uploads to YouTube Shorts, Facebook Reels, Instagram Reels, and TikTok, posting optional first comments, and syncing cross-platform metrics in local SQLite.",
@@ -165,7 +167,6 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
         linkLabel: "Read specification",
       },
       {
-        index: "02",
         name: "Hubz Video",
         summary:
           "Local short-form animation production pipeline combining Remotion, Three.js scenes, Whisper word-level subtitle synchronization, loudness QC, and platform-specific publishing kits.",
@@ -192,7 +193,8 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
         platform: "YouTube Shorts",
         duration: "Up to 180 s",
         delivery: "Native publishAt via 2 MiB resumable upload",
-        scopes: "youtube.upload, youtube.readonly, youtube.force-ssl",
+        scopes: "youtube.upload, youtube.readonly",
+        optionalScopes: "youtube.force-ssl",
       },
       {
         platform: "Facebook Reels",
@@ -290,9 +292,14 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
       githubLabel: "GitHub",
       backToTop: "Top",
     },
+    notFound: {
+      heading: "Page not found",
+      body: "The requested URL does not exist on wahabdinn.my.id. Go back to the overview or open the legal pages.",
+      homeCta: "Back to overview",
+      termsCta: "Terms of Service",
+    },
   },
   id: {
-    htmlLang: "id",
     meta: {
       homeTitle: "Wahabdin Sangadji",
       homeDescription:
@@ -330,7 +337,6 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
     },
     projects: [
       {
-        index: "01",
         name: "Hubz Publisher",
         summary:
           "Studio publikasi self-hosted untuk impor batch kit video, penjadwalan ke YouTube Shorts, Facebook Reels, Instagram Reels, dan TikTok, komentar pertama otomatis, serta sinkronisasi analitik di SQLite lokal.",
@@ -339,7 +345,6 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
         linkLabel: "Baca spesifikasi",
       },
       {
-        index: "02",
         name: "Hubz Video",
         summary:
           "Pipeline produksi animasi video pendek lokal yang menggabungkan Remotion, panggung Three.js, sinkronisasi subtitle Whisper per kata, QC loudness audio, dan kit publikasi lintas platform.",
@@ -366,7 +371,8 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
         platform: "YouTube Shorts",
         duration: "Hingga 180 dtk",
         delivery: "publishAt native via upload resumable 2 MiB",
-        scopes: "youtube.upload, youtube.readonly, youtube.force-ssl",
+        scopes: "youtube.upload, youtube.readonly",
+        optionalScopes: "youtube.force-ssl",
       },
       {
         platform: "Facebook Reels",
@@ -463,6 +469,12 @@ export const SITE_CONTENT: Record<Locale, SiteContent> = {
       privacyLabel: "Kebijakan Privasi",
       githubLabel: "GitHub",
       backToTop: "Atas",
+    },
+    notFound: {
+      heading: "Halaman tidak ditemukan",
+      body: "URL yang diminta tidak tersedia di wahabdinn.my.id. Kembali ke beranda atau buka halaman dokumen hukum.",
+      homeCta: "Kembali ke beranda",
+      termsCta: "Ketentuan Layanan",
     },
   },
 };

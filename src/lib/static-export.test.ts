@@ -4,6 +4,7 @@ import path from "node:path";
 import test from "node:test";
 
 const OUT_DIR = path.resolve(process.cwd(), "out");
+const PUBLIC_DIR = path.resolve(process.cwd(), "public");
 
 const EXPECTED_FILES = [
   "index.html",
@@ -11,19 +12,29 @@ const EXPECTED_FILES = [
   "works/hubz-publisher.html",
   "terms.html",
   "privacy.html",
+  "oauth/tiktok/callback.html",
   "404.html",
   "_redirects",
 ];
 
-test("static export generates unified routes, /works, redirects, and 404.html with crawler-readable EN HTML", (t) => {
-  if (!fs.existsSync(OUT_DIR)) {
-    t.skip("Run `pnpm build` before verifying static HTML output in out/.");
-    return;
-  }
+test("static export generates unified routes, /works, OAuth relay, public files, redirects, and 404.html with crawler-readable EN HTML", () => {
+  assert.ok(
+    fs.existsSync(OUT_DIR),
+    "Missing out/ directory. Run `pnpm build` before running `pnpm test`."
+  );
 
   for (const relPath of EXPECTED_FILES) {
     const fullPath = path.join(OUT_DIR, relPath);
     assert.ok(fs.existsSync(fullPath), `Missing exported static file: ${relPath}`);
+  }
+
+  for (const entry of fs.readdirSync(PUBLIC_DIR, { withFileTypes: true })) {
+    if (entry.isFile()) {
+      assert.ok(
+        fs.existsSync(path.join(OUT_DIR, entry.name)),
+        `Stale out/: missing public/${entry.name} (re-run pnpm build)`
+      );
+    }
   }
 
   assert.ok(!fs.existsSync(path.join(OUT_DIR, "id.html")), "Legacy id.html must not be generated");
@@ -75,6 +86,13 @@ test("static export generates unified routes, /works, redirects, and 404.html wi
   assert.ok(termsHtml.includes("Meta"), "terms.html missing Meta");
 
   assert.ok(homeHtml.includes("<title>Wahabdin Sangadji</title>"), "index.html must render exact home title");
+
+  const oauthHtml = fs.readFileSync(path.join(OUT_DIR, "oauth/tiktok/callback.html"), "utf8");
+  assert.match(
+    oauthHtml,
+    /<meta[^>]*name="robots"[^>]*content="noindex, nofollow"/,
+    "oauth/tiktok/callback.html must keep noindex, nofollow"
+  );
 
   const headerSource = fs.readFileSync(
     path.resolve(process.cwd(), "src/components/site-header.tsx"),

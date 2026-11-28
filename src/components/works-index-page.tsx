@@ -4,7 +4,7 @@ import { ArrowUpRight, Layers, Mail } from "lucide-react";
 import { BackLink } from "@/components/back-link";
 import { PageShell } from "@/components/page-shell";
 import { ProjectCards } from "@/components/project-cards";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { SITE_META } from "@/content/site";
 import { useI18n } from "@/lib/i18n";
 
@@ -49,24 +49,22 @@ export function WorksIndexPage() {
           <p className="max-w-[52ch]">{page.ctaBody}</p>
         </div>
         <div className="flex flex-wrap items-center gap-3 shrink-0">
-          <Button
-            variant="dark"
-            nativeButton={false}
-            render={<a href={`mailto:${SITE_META.email}`} />}
+          <a
+            href={`mailto:${SITE_META.email}`}
+            className={buttonVariants({ variant: "dark" })}
           >
             <Mail strokeWidth={2.5} aria-hidden="true" />
             <span>{copy.nav.emailAction}</span>
-          </Button>
-          <Button
-            variant="neutral"
-            nativeButton={false}
-            render={
-              <a href={SITE_META.githubUrl} target="_blank" rel="noreferrer" />
-            }
+          </a>
+          <a
+            href={SITE_META.githubUrl}
+            target="_blank"
+            rel="noreferrer"
+            className={buttonVariants({ variant: "neutral" })}
           >
             <span>{copy.footer.githubLabel}</span>
             <ArrowUpRight strokeWidth={2.5} aria-hidden="true" />
-          </Button>
+          </a>
         </div>
       </section>
     </PageShell>
